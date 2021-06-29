@@ -1,0 +1,17 @@
+[package]
+name = "gl-context-loader"
+version = "0.1.0"
+license = "Apache-2.0/MIT"
+authors = ["Felix Schütt <felix.schuett@maps4print.com>", "The Servo Project Developers"]
+description = "Minimal OpenGL function loader for no_std context"
+homepage = "https://azul.rs/"
+keywords = ["gui", "gleam", "graphics", "opengl", "no_std"]
+categories = ["gui"]
+repository = "https://github.com/fschutt/gl-context-loader"
+
+[dependencies]
+gleam = { version = "0.13.1", default-features = false, optional = true }
+
+[features]
+std = ["gleam"]
+default = ["std"]
