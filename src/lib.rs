@@ -975,7 +975,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLsizeiptr, *const GLvoid, GLenum) = mem::transmute(self.glBufferData);
+                let func: extern "system" fn(GLenum, GLsizeiptr, *const GLvoid, GLenum) = mem::transmute(self.glBufferData);
                 (func)(target, size, data, usage)
             }
         }
@@ -993,7 +993,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, isize, GLsizeiptr, *const GLvoid) = mem::transmute(self.glBufferSubData);
+                let func: extern "system" fn(GLenum, isize, GLsizeiptr, *const GLvoid) = mem::transmute(self.glBufferSubData);
                 (func)(target, offset, size, data)
             }
         }
@@ -1005,7 +1005,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLbitfield) -> *mut GLvoid = mem::transmute(self.glMapBuffer);
+                let func: extern "system" fn(GLenum, GLbitfield) -> *mut GLvoid = mem::transmute(self.glMapBuffer);
                 (func)(target, access)
             }
         }
@@ -1023,7 +1023,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn( GLenum, GLintptr, GLsizeiptr, GLbitfield) -> *mut GLvoid = mem::transmute(self.glMapBufferRange);
+                let func: extern "system" fn( GLenum, GLintptr, GLsizeiptr, GLbitfield) -> *mut GLvoid = mem::transmute(self.glMapBufferRange);
                 (func)(target, offset, length, access)
             }
         }
@@ -1034,7 +1034,7 @@ macro_rules! impl_gl_context {
                 return 1;
             }
             unsafe {
-                let func: extern "C" fn(GLenum) -> GLboolean = mem::transmute(self.glUnmapBuffer);
+                let func: extern "system" fn(GLenum) -> GLboolean = mem::transmute(self.glUnmapBuffer);
                 (func)(target)
             }
         }
@@ -1045,7 +1045,7 @@ macro_rules! impl_gl_context {
                 return;
             }
             unsafe {
-                let func: extern "C" fn(GLenum, GLenum, GLuint) = mem::transmute(self.glTexBuffer);
+                let func: extern "system" fn(GLenum, GLenum, GLuint) = mem::transmute(self.glTexBuffer);
                 (func)(target, internal_format, buffer)
             }
         }
@@ -1056,7 +1056,7 @@ macro_rules! impl_gl_context {
                 return;
             }
             unsafe {
-                let func: extern "C" fn(GLuint, &[&[u8]]) = mem::transmute(self.glShaderSource);
+                let func: extern "system" fn(GLuint, &[&[u8]]) = mem::transmute(self.glShaderSource);
                 (func)(shader, strings)
             }
         }
@@ -1067,7 +1067,7 @@ macro_rules! impl_gl_context {
                 return;
             }
             unsafe {
-                let func: extern "C" fn(GLenum) = mem::transmute(self.glReadBuffer);
+                let func: extern "system" fn(GLenum) = mem::transmute(self.glReadBuffer);
                 (func)(mode)
             }
         }
@@ -1093,10 +1093,10 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let glPixelStorei: extern "C" fn(GLenum, GLint) = mem::transmute(self.glPixelStorei);
+                let glPixelStorei: extern "system" fn(GLenum, GLint) = mem::transmute(self.glPixelStorei);
                 (glPixelStorei)(ffi::PACK_ALIGNMENT, 1);
 
-                let func: extern "C" fn(GLint, GLint, GLsizei, GLsizei, GLenum, GLenum, *mut u8) = mem::transmute(self.glReadPixels);
+                let func: extern "system" fn(GLint, GLint, GLsizei, GLsizei, GLenum, GLenum, *mut u8) = mem::transmute(self.glReadPixels);
                 (func)(x, y, width, height, format, pixel_type, dst_buffer.as_mut_ptr())
             }
         }
@@ -1166,7 +1166,7 @@ macro_rules! impl_gl_context {
                 return;
             }
 
-            let func: extern "C" fn(GLint, GLint, GLsizei, GLsizei, GLenum, GLenum, *mut u8) = mem::transmute(self.glReadPixels);
+            let func: extern "system" fn(GLint, GLint, GLsizei, GLsizei, GLenum, GLenum, *mut u8) = mem::transmute(self.glReadPixels);
             (func)(x, y, width, height, format, pixel_type, ptr::null_mut())
         }
 
@@ -1177,7 +1177,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLclampf, bool) = mem::transmute(self.glSampleCoverage);
+                let func: extern "system" fn(GLclampf, bool) = mem::transmute(self.glSampleCoverage);
                 (func)(value, invert)
             }
         }
@@ -1189,7 +1189,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLfloat, GLfloat) = mem::transmute(self.glPolygonOffset);
+                let func: extern "system" fn(GLfloat, GLfloat) = mem::transmute(self.glPolygonOffset);
                 (func)(factor, units)
             }
         }
@@ -1201,7 +1201,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLint) = mem::transmute(self.glPixelStorei);
+                let func: extern "system" fn(GLenum, GLint) = mem::transmute(self.glPixelStorei);
                 (func)(name, param)
             }
         }
@@ -1214,7 +1214,7 @@ macro_rules! impl_gl_context {
 
             let mut v = vec![0;n.max(0) as usize];
             unsafe {
-                let func: extern "C" fn(GLsizei, *mut GLuint) = mem::transmute(self.glGenBuffers);
+                let func: extern "system" fn(GLsizei, *mut GLuint) = mem::transmute(self.glGenBuffers);
                 (func)(n, v.as_mut_ptr());
             }
             v
@@ -1228,7 +1228,7 @@ macro_rules! impl_gl_context {
 
             let mut v = vec![0;n.max(0) as usize];
             unsafe {
-                let func: extern "C" fn(GLsizei, *mut GLuint) = mem::transmute(self.glGenRenderbuffers);
+                let func: extern "system" fn(GLsizei, *mut GLuint) = mem::transmute(self.glGenRenderbuffers);
                 (func)(n, v.as_mut_ptr());
             }
             v
@@ -1242,7 +1242,7 @@ macro_rules! impl_gl_context {
 
             let mut v = vec![0;n.max(0) as usize];
             unsafe {
-                let func: extern "C" fn(GLsizei, *mut GLuint) = mem::transmute(self.glGenFramebuffers);
+                let func: extern "system" fn(GLsizei, *mut GLuint) = mem::transmute(self.glGenFramebuffers);
                 (func)(n, v.as_mut_ptr());
             }
             v
@@ -1256,7 +1256,7 @@ macro_rules! impl_gl_context {
 
             let mut v = vec![0;n.max(0) as usize];
             unsafe {
-                let func: extern "C" fn(GLsizei, *mut GLuint) = mem::transmute(self.glGenTextures);
+                let func: extern "system" fn(GLsizei, *mut GLuint) = mem::transmute(self.glGenTextures);
                 (func)(n, v.as_mut_ptr());
             }
             v
@@ -1270,7 +1270,7 @@ macro_rules! impl_gl_context {
 
             let mut v = vec![0;n.max(0) as usize];
             unsafe {
-                let func: extern "C" fn(GLsizei, *mut GLuint) = mem::transmute(self.glGenVertexArrays);
+                let func: extern "system" fn(GLsizei, *mut GLuint) = mem::transmute(self.glGenVertexArrays);
                 (func)(n, v.as_mut_ptr());
             }
             v
@@ -1284,7 +1284,7 @@ macro_rules! impl_gl_context {
 
             let mut v = vec![0;n.max(0) as usize];
             unsafe {
-                let func: extern "C" fn(GLsizei, *mut GLuint) = mem::transmute(self.glGenVertexArraysAPPLE);
+                let func: extern "system" fn(GLsizei, *mut GLuint) = mem::transmute(self.glGenVertexArraysAPPLE);
                 (func)(n, v.as_mut_ptr());
             }
             v
@@ -1298,7 +1298,7 @@ macro_rules! impl_gl_context {
 
             let mut v = vec![0;n.max(0) as usize];
             unsafe {
-                let func: extern "C" fn(GLsizei, *mut GLuint) = mem::transmute(self.glGenQueries);
+                let func: extern "system" fn(GLsizei, *mut GLuint) = mem::transmute(self.glGenQueries);
                 (func)(n, v.as_mut_ptr());
             }
             v
@@ -1311,7 +1311,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLuint) = mem::transmute(self.glBeginQuery);
+                let func: extern "system" fn(GLenum, GLuint) = mem::transmute(self.glBeginQuery);
                 (func)(target, id)
             }
         }
@@ -1323,7 +1323,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum) = mem::transmute(self.glEndQuery);
+                let func: extern "system" fn(GLenum) = mem::transmute(self.glEndQuery);
                 (func)(target)
             }
         }
@@ -1335,7 +1335,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLuint, GLenum) = mem::transmute(self.glQueryCounter);
+                let func: extern "system" fn(GLuint, GLenum) = mem::transmute(self.glQueryCounter);
                 (func)(id, target)
             }
         }
@@ -1347,7 +1347,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLuint, GLenum) -> i32 = mem::transmute(self.glGetQueryObjectiv);
+                let func: extern "system" fn(GLuint, GLenum) -> i32 = mem::transmute(self.glGetQueryObjectiv);
                 (func)(id, pname)
             }
         }
@@ -1359,7 +1359,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLuint, GLenum) -> u32 = mem::transmute(self.glGetQueryObjectuiv);
+                let func: extern "system" fn(GLuint, GLenum) -> u32 = mem::transmute(self.glGetQueryObjectuiv);
                 (func)(id, pname)
             }
         }
@@ -1371,7 +1371,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLuint, GLenum) -> i64 = mem::transmute(self.glGetQueryObjecti64v);
+                let func: extern "system" fn(GLuint, GLenum) -> i64 = mem::transmute(self.glGetQueryObjecti64v);
                 (func)(id, pname)
             }
         }
@@ -1383,7 +1383,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLuint, GLenum) -> u64 = mem::transmute(self.glGetQueryObjectui64v);
+                let func: extern "system" fn(GLuint, GLenum) -> u64 = mem::transmute(self.glGetQueryObjectui64v);
                 (func)(id, pname)
             }
         }
@@ -1395,7 +1395,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLsizei, *const GLuint) = mem::transmute(self.glDeleteQueries);
+                let func: extern "system" fn(GLsizei, *const GLuint) = mem::transmute(self.glDeleteQueries);
                 (func)(queries.len() as GLsizei, queries.as_ptr())
             }
         }
@@ -1407,7 +1407,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLsizei, *const GLuint) = mem::transmute(self.glDeleteVertexArrays);
+                let func: extern "system" fn(GLsizei, *const GLuint) = mem::transmute(self.glDeleteVertexArrays);
                 (func)(vertex_arrays.len() as GLsizei, vertex_arrays.as_ptr())
             }
         }
@@ -1419,7 +1419,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLsizei, *const GLuint) = mem::transmute(self.glDeleteVertexArraysAPPLE);
+                let func: extern "system" fn(GLsizei, *const GLuint) = mem::transmute(self.glDeleteVertexArraysAPPLE);
                 (func)(vertex_arrays.len() as GLsizei, vertex_arrays.as_ptr())
             }
         }
@@ -1431,7 +1431,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLsizei, *const GLuint) = mem::transmute(self.glDeleteBuffers);
+                let func: extern "system" fn(GLsizei, *const GLuint) = mem::transmute(self.glDeleteBuffers);
                 (func)(buffers.len() as GLsizei, buffers.as_ptr())
             }
         }
@@ -1443,7 +1443,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLsizei, *const GLuint) = mem::transmute(self.glDeleteRenderbuffers);
+                let func: extern "system" fn(GLsizei, *const GLuint) = mem::transmute(self.glDeleteRenderbuffers);
                 (func)(renderbuffers.len() as GLsizei, renderbuffers.as_ptr())
             }
         }
@@ -1455,7 +1455,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLsizei, *const GLuint) = mem::transmute(self.glDeleteFramebuffers);
+                let func: extern "system" fn(GLsizei, *const GLuint) = mem::transmute(self.glDeleteFramebuffers);
                 (func)(framebuffers.len() as GLsizei, framebuffers.as_ptr())
             }
         }
@@ -1467,7 +1467,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLsizei, *const GLuint) = mem::transmute(self.glDeleteTextures);
+                let func: extern "system" fn(GLsizei, *const GLuint) = mem::transmute(self.glDeleteTextures);
                 (func)(textures.len() as GLsizei, textures.as_ptr())
             }
         }
@@ -1485,7 +1485,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLenum, GLenum, GLuint) = mem::transmute(self.glFramebufferRenderbuffer);
+                let func: extern "system" fn(GLenum, GLenum, GLenum, GLuint) = mem::transmute(self.glFramebufferRenderbuffer);
                 (func)( target, attachment, renderbuffertarget, renderbuffer)
             }
         }
@@ -1503,7 +1503,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLenum, GLsizei, GLsizei) = mem::transmute(self.glRenderbufferStorage);
+                let func: extern "system" fn(GLenum, GLenum, GLsizei, GLsizei) = mem::transmute(self.glRenderbufferStorage);
                 (func)(target, internalformat, width, height)
             }
         }
@@ -1515,7 +1515,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let glDepthFunc: extern "C" fn(GLenum) = mem::transmute(self.glDepthFunc);
+                let glDepthFunc: extern "system" fn(GLenum) = mem::transmute(self.glDepthFunc);
                 (glDepthFunc)(func)
             }
         }
@@ -1527,7 +1527,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum) = mem::transmute(self.glActiveTexture);
+                let func: extern "system" fn(GLenum) = mem::transmute(self.glActiveTexture);
                 (func)(texture)
             }
         }
@@ -1539,7 +1539,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLuint, GLuint) = mem::transmute(self.glAttachShader);
+                let func: extern "system" fn(GLuint, GLuint) = mem::transmute(self.glAttachShader);
                 (func)(program, shader)
             }
         }
@@ -1554,7 +1554,7 @@ macro_rules! impl_gl_context {
             let cstr = encode_ascii(name);
 
             unsafe {
-                let func: extern "C" fn(GLuint, GLuint, *const c_char) = mem::transmute(self.glBindAttribLocation);
+                let func: extern "system" fn(GLuint, GLuint, *const c_char) = mem::transmute(self.glBindAttribLocation);
                 (func)(program, index, cstr.as_ptr())
             }
         }
@@ -1565,7 +1565,7 @@ macro_rules! impl_gl_context {
                 return;
             }
 
-            let func: extern "C" fn(GLuint, GLint, *mut GLint) = mem::transmute(self.glGetUniformiv);
+            let func: extern "system" fn(GLuint, GLint, *mut GLint) = mem::transmute(self.glGetUniformiv);
             (func)(program, location, result.as_mut_ptr())
         }
 
@@ -1575,7 +1575,7 @@ macro_rules! impl_gl_context {
                 return;
             }
 
-            let func: extern "C" fn(GLuint, GLint, *mut GLfloat) = mem::transmute(self.glGetUniformfv);
+            let func: extern "system" fn(GLuint, GLint, *mut GLfloat) = mem::transmute(self.glGetUniformfv);
             (func)(program, location, result.as_mut_ptr())
         }
 
@@ -1588,7 +1588,7 @@ macro_rules! impl_gl_context {
             let cstr = encode_ascii(name);
 
             unsafe {
-                let func: extern "C" fn(GLuint, *const c_char) -> GLuint = mem::transmute(self.glGetUniformBlockIndex);
+                let func: extern "system" fn(GLuint, *const c_char) -> GLuint = mem::transmute(self.glGetUniformBlockIndex);
                 (func)(program, cstr.as_ptr())
             }
         }
@@ -1609,7 +1609,7 @@ macro_rules! impl_gl_context {
             let pointers: Vec<*const GLchar> = c_strings.iter().map(|string| string.as_ptr()).collect();
             let mut result = vec![0;c_strings.len()];
             unsafe {
-                let func: extern "C" fn(GLuint, GLsizei, *const *const GLchar, *const GLuint) -> GLuint = mem::transmute(self.glGetUniformIndices);
+                let func: extern "system" fn(GLuint, GLsizei, *const *const GLchar, *const GLuint) -> GLuint = mem::transmute(self.glGetUniformIndices);
                 (func)(
                     program,
                     pointers.len() as GLsizei,
@@ -1628,7 +1628,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLuint, GLuint) = mem::transmute(self.glBindBufferBase);
+                let func: extern "system" fn(GLenum, GLuint, GLuint) = mem::transmute(self.glBindBufferBase);
                 (func)(target, index, buffer);
             }
         }
@@ -1648,7 +1648,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLuint, GLuint, GLintptr, GLsizeiptr) = mem::transmute(self.glBindBufferRange);
+                let func: extern "system" fn(GLenum, GLuint, GLuint, GLintptr, GLsizeiptr) = mem::transmute(self.glBindBufferRange);
                 (func)(target, index, buffer, offset, size);
             }
         }
@@ -1666,7 +1666,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLuint, GLuint, GLuint) = mem::transmute(self.glUniformBlockBinding);
+                let func: extern "system" fn(GLuint, GLuint, GLuint) = mem::transmute(self.glUniformBlockBinding);
                 (func)(program, uniform_block_index, uniform_block_binding);
             }
         }
@@ -1679,7 +1679,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLuint) = mem::transmute(self.glBindBuffer);
+                let func: extern "system" fn(GLenum, GLuint) = mem::transmute(self.glBindBuffer);
                 (func)(target, buffer);
             }
         }
@@ -1692,7 +1692,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLuint) = mem::transmute(self.glBindVertexArray);
+                let func: extern "system" fn(GLuint) = mem::transmute(self.glBindVertexArray);
                 (func)(vao);
             }
         }
@@ -1705,7 +1705,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLuint) = mem::transmute(self.glBindVertexArrayAPPLE);
+                let func: extern "system" fn(GLuint) = mem::transmute(self.glBindVertexArrayAPPLE);
                 (func)(vao)
             }
         }
@@ -1718,7 +1718,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLuint) = mem::transmute(self.glBindRenderbuffer);
+                let func: extern "system" fn(GLenum, GLuint) = mem::transmute(self.glBindRenderbuffer);
                 (func)(target, renderbuffer);
             }
         }
@@ -1731,7 +1731,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLuint) = mem::transmute(self.glBindFramebuffer);
+                let func: extern "system" fn(GLenum, GLuint) = mem::transmute(self.glBindFramebuffer);
                 (func)(target, framebuffer);
             }
         }
@@ -1744,7 +1744,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLuint) = mem::transmute(self.glBindTexture);
+                let func: extern "system" fn(GLenum, GLuint) = mem::transmute(self.glBindTexture);
                 (func)(target, texture);
             }
         }
@@ -1757,7 +1757,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLsizei, *const GLenum) = mem::transmute(self.glDrawBuffers);
+                let func: extern "system" fn(GLsizei, *const GLenum) = mem::transmute(self.glDrawBuffers);
                 (func)(bufs.len() as GLsizei, bufs.as_ptr());
             }
         }
@@ -1781,7 +1781,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLint, GLint, GLsizei, GLsizei, GLint, GLenum, GLenum, *const GLvoid) = mem::transmute(self.glTexImage2D);
+                let func: extern "system" fn(GLenum, GLint, GLint, GLsizei, GLsizei, GLint, GLenum, GLenum, *const GLvoid) = mem::transmute(self.glTexImage2D);
 
                 match opt_data {
                     Some(data) => {
@@ -1831,7 +1831,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLint, GLenum, GLsizei, GLsizei, GLint, GLsizei, *const GLvoid) = mem::transmute(self.glCompressedTexImage2D);
+                let func: extern "system" fn(GLenum, GLint, GLenum, GLsizei, GLsizei, GLint, GLsizei, *const GLvoid) = mem::transmute(self.glCompressedTexImage2D);
                 (func)(
                     target,
                     level,
@@ -1862,7 +1862,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLint, GLint, GLint, GLsizei, GLsizei, GLenum, GLsizei, *const GLvoid) = mem::transmute(self.glCompressedTexSubImage2D);
+                let func: extern "system" fn(GLenum, GLint, GLint, GLint, GLsizei, GLsizei, GLenum, GLsizei, *const GLvoid) = mem::transmute(self.glCompressedTexSubImage2D);
                 (func)(
                     target,
                     level,
@@ -1901,7 +1901,7 @@ macro_rules! impl_gl_context {
                     Some(data) => mem::transmute(data.as_ptr()),
                     None => ptr::null(),
                 };
-                let func: extern "C" fn(GLenum, GLint, GLint, GLsizei, GLsizei, GLsizei, GLint, GLenum, GLenum, *const GLvoid) = mem::transmute(self.glTexImage3D);
+                let func: extern "system" fn(GLenum, GLint, GLint, GLsizei, GLsizei, GLsizei, GLint, GLenum, GLenum, *const GLvoid) = mem::transmute(self.glTexImage3D);
                 (func)(
                     target,
                     level,
@@ -1934,7 +1934,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum,GLint,GLenum,GLint,GLint,GLsizei,GLsizei,GLint) = mem::transmute(self.glCopyTexImage2D);
+                let func: extern "system" fn(GLenum,GLint,GLenum,GLint,GLint,GLsizei,GLsizei,GLint) = mem::transmute(self.glCopyTexImage2D);
                 (func)(
                     target,
                     level,
@@ -1965,7 +1965,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLint, GLint, GLint, GLint, GLint, GLsizei, GLsizei) = mem::transmute(self.glCopyTexSubImage2D);
+                let func: extern "system" fn(GLenum, GLint, GLint, GLint, GLint, GLint, GLsizei, GLsizei) = mem::transmute(self.glCopyTexSubImage2D);
                 (func)(target, level, xoffset, yoffset, x, y, width, height);
             }
         }
@@ -1988,7 +1988,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLint, GLint, GLint, GLint, GLint, GLint, GLsizei, GLsizei) = mem::transmute(self.glCopyTexSubImage3D);
+                let func: extern "system" fn(GLenum, GLint, GLint, GLint, GLint, GLint, GLint, GLsizei, GLsizei) = mem::transmute(self.glCopyTexSubImage3D);
                 (func)(
                     target, level, xoffset, yoffset, zoffset, x, y, width, height,
                 );
@@ -2013,7 +2013,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLint, GLint, GLint, GLsizei, GLsizei, GLenum, GLenum, *const c_void) = mem::transmute(self.glTexSubImage2D);
+                let func: extern "system" fn(GLenum, GLint, GLint, GLint, GLsizei, GLsizei, GLenum, GLenum, *const c_void) = mem::transmute(self.glTexSubImage2D);
                 (func)(
                     target,
                     level,
@@ -2046,7 +2046,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLint, GLint, GLint, GLsizei, GLsizei, GLenum, GLenum, *const c_void) = mem::transmute(self.glTexSubImage2D);
+                let func: extern "system" fn(GLenum, GLint, GLint, GLint, GLsizei, GLsizei, GLenum, GLenum, *const c_void) = mem::transmute(self.glTexSubImage2D);
                 (func)(
                     target,
                     level,
@@ -2081,7 +2081,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLint, GLint, GLint, GLint, GLsizei, GLsizei, GLsizei, GLenum, GLenum, *const c_void) = mem::transmute(self.glTexSubImage3D);
+                let func: extern "system" fn(GLenum, GLint, GLint, GLint, GLint, GLsizei, GLsizei, GLsizei, GLenum, GLenum, *const c_void) = mem::transmute(self.glTexSubImage3D);
                 (func)(
                     target,
                     level,
@@ -2118,7 +2118,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLint, GLint, GLint, GLint, GLsizei, GLsizei, GLsizei, GLenum, GLenum, *const c_void) = mem::transmute(self.glTexSubImage3D);
+                let func: extern "system" fn(GLenum, GLint, GLint, GLint, GLint, GLsizei, GLsizei, GLsizei, GLenum, GLenum, *const c_void) = mem::transmute(self.glTexSubImage3D);
                 (func)(
                     target,
                     level,
@@ -2149,7 +2149,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLsizei, GLenum, GLsizei, GLsizei) = mem::transmute(self.glTexStorage2D);
+                let func: extern "system" fn(GLenum, GLsizei, GLenum, GLsizei, GLsizei) = mem::transmute(self.glTexStorage2D);
                 (func)(target, levels, internal_format, width, height);
             }
         }
@@ -2169,7 +2169,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLsizei, GLenum, GLsizei, GLsizei, GLsizei) = mem::transmute(self.glTexStorage3D);
+                let func: extern "system" fn(GLenum, GLsizei, GLenum, GLsizei, GLsizei, GLsizei) = mem::transmute(self.glTexStorage3D);
                 (func)(target, levels, internal_format, width, height, depth);
             }
         }
@@ -2188,7 +2188,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLint, GLenum, GLenum, *mut GLvoid) = mem::transmute(self.glGetTexImage);
+                let func: extern "system" fn(GLenum, GLint, GLenum, GLenum, *mut GLvoid) = mem::transmute(self.glGetTexImage);
                 (func)(target, level, format, ty, output.as_mut_ptr() as *mut _);
             }
         }
@@ -2216,7 +2216,7 @@ macro_rules! impl_gl_context {
                 return;
             }
 
-            let func: extern "C" fn(GLuint, GLenum, GLint, GLint, GLint, GLint, GLuint, GLenum, GLint, GLint, GLint, GLint, GLsizei, GLsizei, GLsizei) = mem::transmute(self.glCopyImageSubData);
+            let func: extern "system" fn(GLuint, GLenum, GLint, GLint, GLint, GLint, GLuint, GLenum, GLint, GLint, GLint, GLint, GLsizei, GLsizei, GLsizei) = mem::transmute(self.glCopyImageSubData);
             (func)(
                 src_name, src_target, src_level, src_x, src_y, src_z, dst_name, dst_target, dst_level,
                 dst_x, dst_y, dst_z, src_width, src_height, src_depth,
@@ -2231,7 +2231,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLsizei, *const GLenum) = mem::transmute(self.glInvalidateFramebuffer);
+                let func: extern "system" fn(GLenum, GLsizei, *const GLenum) = mem::transmute(self.glInvalidateFramebuffer);
                 (func)(
                     target,
                     attachments.len() as GLsizei,
@@ -2256,7 +2256,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLsizei, *const GLenum, GLint, GLint, GLsizei, GLsizei) = mem::transmute(self.glInvalidateSubFramebuffer);
+                let func: extern "system" fn(GLenum, GLsizei, *const GLenum, GLint, GLint, GLsizei, GLsizei) = mem::transmute(self.glInvalidateSubFramebuffer);
                 (func)(
                     target,
                     attachments.len() as GLsizei,
@@ -2275,7 +2275,7 @@ macro_rules! impl_gl_context {
                 return;
             }
 
-            let func: extern "C" fn(GLenum, *mut GLint) = mem::transmute(self.glGetIntegerv);
+            let func: extern "system" fn(GLenum, *mut GLint) = mem::transmute(self.glGetIntegerv);
             (func)(name, result.as_mut_ptr());
         }
 
@@ -2284,7 +2284,7 @@ macro_rules! impl_gl_context {
                 _gl_impl_panic("glGetInteger64v");
                 return;
             }
-            let func: extern "C" fn(GLenum, *mut GLint64) = mem::transmute(self.glGetInteger64v);
+            let func: extern "system" fn(GLenum, *mut GLint64) = mem::transmute(self.glGetInteger64v);
             (func)(name, result.as_mut_ptr());
         }
 
@@ -2293,7 +2293,7 @@ macro_rules! impl_gl_context {
                 _gl_impl_panic("glGetIntegeri_v");
                 return;
             }
-            let func: extern "C" fn(GLenum, GLuint, *mut GLint) = mem::transmute(self.glGetIntegeri_v);
+            let func: extern "system" fn(GLenum, GLuint, *mut GLint) = mem::transmute(self.glGetIntegeri_v);
             (func)(name, index, result.as_mut_ptr());
         }
 
@@ -2303,7 +2303,7 @@ macro_rules! impl_gl_context {
                 _gl_impl_panic("glGetInteger64i_v");
                 return;
             }
-            let func: extern "C" fn(GLenum, GLuint, *mut GLint64) = mem::transmute(self.glGetInteger64i_v);
+            let func: extern "system" fn(GLenum, GLuint, *mut GLint64) = mem::transmute(self.glGetInteger64i_v);
             (func)(name, index, result.as_mut_ptr());
         }
 
@@ -2313,7 +2313,7 @@ macro_rules! impl_gl_context {
                 _gl_impl_panic("glGetBooleanv");
                 return;
             }
-            let func: extern "C" fn(GLenum, *mut GLboolean) = mem::transmute(self.glGetBooleanv);
+            let func: extern "system" fn(GLenum, *mut GLboolean) = mem::transmute(self.glGetBooleanv);
             (func)(name, result.as_mut_ptr());
         }
 
@@ -2323,7 +2323,7 @@ macro_rules! impl_gl_context {
                 _gl_impl_panic("glGetFloatv");
                 return;
             }
-            let func: extern "C" fn(GLenum, *mut GLfloat) = mem::transmute(self.glGetFloatv);
+            let func: extern "system" fn(GLenum, *mut GLfloat) = mem::transmute(self.glGetFloatv);
             (func)(name, result.as_mut_ptr());
         }
 
@@ -2339,7 +2339,7 @@ macro_rules! impl_gl_context {
             }
             let mut result: GLint = 0;
             unsafe {
-                let func: extern "C" fn(GLenum, GLenum, GLenum, *mut GLint) = mem::transmute(self.glGetFramebufferAttachmentParameteriv);
+                let func: extern "system" fn(GLenum, GLenum, GLenum, *mut GLint) = mem::transmute(self.glGetFramebufferAttachmentParameteriv);
                 (func)(
                     target,
                     attachment,
@@ -2358,7 +2358,7 @@ macro_rules! impl_gl_context {
 
             let mut result: GLint = 0;
             unsafe {
-                let func: extern "C" fn(GLenum, GLenum, *mut GLint) = mem::transmute(self.glGetRenderbufferParameteriv);
+                let func: extern "system" fn(GLenum, GLenum, *mut GLint) = mem::transmute(self.glGetRenderbufferParameteriv);
                 (func)(target, pname, &mut result);
             }
             result
@@ -2373,7 +2373,7 @@ macro_rules! impl_gl_context {
 
             let mut result: GLint = 0;
             unsafe {
-                let func: extern "C" fn(GLenum, GLenum, *mut GLint) = mem::transmute(self.glGetTexParameteriv);
+                let func: extern "system" fn(GLenum, GLenum, *mut GLint) = mem::transmute(self.glGetTexParameteriv);
                 (func)(target, pname, &mut result);
             }
             result
@@ -2388,7 +2388,7 @@ macro_rules! impl_gl_context {
 
             let mut result: GLfloat = 0.0;
             unsafe {
-                let func: extern "C" fn(GLenum, GLenum, *mut GLfloat) = mem::transmute(self.glGetTexParameterfv);
+                let func: extern "system" fn(GLenum, GLenum, *mut GLfloat) = mem::transmute(self.glGetTexParameterfv);
                 (func)(target, pname, &mut result);
             }
             result
@@ -2402,7 +2402,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLenum, GLint) = mem::transmute(self.glTexParameteri);
+                let func: extern "system" fn(GLenum, GLenum, GLint) = mem::transmute(self.glTexParameteri);
                 (func)(target, pname, param);
             }
         }
@@ -2415,7 +2415,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLenum, GLfloat) = mem::transmute(self.glTexParameterf);
+                let func: extern "system" fn(GLenum, GLenum, GLfloat) = mem::transmute(self.glTexParameterf);
                 (func)(target, pname, param);
             }
         }
@@ -2435,7 +2435,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLenum, GLenum, GLuint, GLint) = mem::transmute(self.glFramebufferTexture2D);
+                let func: extern "system" fn(GLenum, GLenum, GLenum, GLuint, GLint) = mem::transmute(self.glFramebufferTexture2D);
                 (func)(target, attachment, textarget, texture, level);
             }
         }
@@ -2454,7 +2454,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLenum, GLuint, GLint, GLint) = mem::transmute(self.glFramebufferTextureLayer);
+                let func: extern "system" fn(GLenum, GLenum, GLuint, GLint, GLint) = mem::transmute(self.glFramebufferTextureLayer);
                 (func)(target, attachment, texture, level, layer);
             }
         }
@@ -2478,7 +2478,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLint, GLint, GLint, GLint, GLint, GLint, GLint, GLint, GLbitfield, GLenum) = mem::transmute(self.glBlitFramebuffer);
+                let func: extern "system" fn(GLint, GLint, GLint, GLint, GLint, GLint, GLint, GLint, GLbitfield, GLenum) = mem::transmute(self.glBlitFramebuffer);
                 (func)(
                     src_x0, src_y0, src_x1, src_y1, dst_x0, dst_y0, dst_x1, dst_y1, mask, filter,
                 );
@@ -2492,7 +2492,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLuint, GLfloat, GLfloat, GLfloat, GLfloat) = mem::transmute(self.glVertexAttrib4f);
+                let func: extern "system" fn(GLuint, GLfloat, GLfloat, GLfloat, GLfloat) = mem::transmute(self.glVertexAttrib4f);
                 (func)(index, x, y, z, w)
             }
         }
@@ -2511,7 +2511,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLuint, GLint, GLenum, GLboolean, GLsizei, *const GLvoid) = mem::transmute(self.glVertexAttribPointer);
+                let func: extern "system" fn(GLuint, GLint, GLenum, GLboolean, GLsizei, *const GLvoid) = mem::transmute(self.glVertexAttribPointer);
                 (func)(
                     index,
                     size,
@@ -2538,7 +2538,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLuint, GLint, GLenum, GLboolean, GLsizei, *const GLvoid) = mem::transmute(self.glVertexAttribPointer);
+                let func: extern "system" fn(GLuint, GLint, GLenum, GLboolean, GLsizei, *const GLvoid) = mem::transmute(self.glVertexAttribPointer);
                 (func)(
                     index,
                     size,
@@ -2564,7 +2564,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLuint, GLint, GLenum, GLsizei, *const GLvoid) = mem::transmute(self.glVertexAttribIPointer);
+                let func: extern "system" fn(GLuint, GLint, GLenum, GLsizei, *const GLvoid) = mem::transmute(self.glVertexAttribIPointer);
                 (func)(index, size, type_, stride, offset as *const GLvoid)
             }
         }
@@ -2577,7 +2577,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLuint, GLuint) = mem::transmute(self.glVertexAttribDivisor);
+                let func: extern "system" fn(GLuint, GLuint) = mem::transmute(self.glVertexAttribDivisor);
                 (func)(index, divisor)
             }
         }
@@ -2590,7 +2590,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLint, GLint, GLsizei, GLsizei) = mem::transmute(self.glViewport);
+                let func: extern "system" fn(GLint, GLint, GLsizei, GLsizei) = mem::transmute(self.glViewport);
                 (func)(x, y, width, height);
             }
         }
@@ -2603,7 +2603,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLint, GLint, GLsizei, GLsizei) = mem::transmute(self.glScissor);
+                let func: extern "system" fn(GLint, GLint, GLsizei, GLsizei) = mem::transmute(self.glScissor);
                 (func)(x, y, width, height);
             }
         }
@@ -2616,7 +2616,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLfloat) = mem::transmute(self.glLineWidth);
+                let func: extern "system" fn(GLfloat) = mem::transmute(self.glLineWidth);
                 (func)(width);
             }
         }
@@ -2629,7 +2629,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLuint) = mem::transmute(self.glUseProgram);
+                let func: extern "system" fn(GLuint) = mem::transmute(self.glUseProgram);
                 (func)(program);
             }
         }
@@ -2642,7 +2642,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLuint) = mem::transmute(self.glValidateProgram);
+                let func: extern "system" fn(GLuint) = mem::transmute(self.glValidateProgram);
                 (func)(program);
             }
         }
@@ -2655,7 +2655,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLint, GLsizei) = mem::transmute(self.glDrawArrays);
+                let func: extern "system" fn(GLenum, GLint, GLsizei) = mem::transmute(self.glDrawArrays);
                 return (func)(mode, first, count);
             }
         }
@@ -2674,7 +2674,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum,GLint,GLsizei,GLsizei) = mem::transmute(self.glDrawArraysInstanced);
+                let func: extern "system" fn(GLenum,GLint,GLsizei,GLsizei) = mem::transmute(self.glDrawArraysInstanced);
                 return (func)(mode, first, count, primcount);
             }
         }
@@ -2692,7 +2692,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLsizei, GLenum, *const c_void) = mem::transmute(self.glDrawElements);
+                let func: extern "system" fn(GLenum, GLsizei, GLenum, *const c_void) = mem::transmute(self.glDrawElements);
                 return (func)(
                     mode,
                     count,
@@ -2716,7 +2716,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLsizei, GLenum, *const c_void, GLsizei) = mem::transmute(self.glDrawElementsInstanced);
+                let func: extern "system" fn(GLenum, GLsizei, GLenum, *const c_void, GLsizei) = mem::transmute(self.glDrawElementsInstanced);
                 return (func)(
                     mode,
                     count,
@@ -2735,7 +2735,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLclampf, GLclampf, GLclampf, GLclampf) = mem::transmute(self.glBlendColor);
+                let func: extern "system" fn(GLclampf, GLclampf, GLclampf, GLclampf) = mem::transmute(self.glBlendColor);
                 (func)(r, g, b, a);
             }
         }
@@ -2748,7 +2748,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLenum) = mem::transmute(self.glBlendFunc);
+                let func: extern "system" fn(GLenum, GLenum) = mem::transmute(self.glBlendFunc);
                 (func)(sfactor, dfactor);
             }
         }
@@ -2766,7 +2766,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLenum, GLenum, GLenum) = mem::transmute(self.glBlendFuncSeparate);
+                let func: extern "system" fn(GLenum, GLenum, GLenum, GLenum) = mem::transmute(self.glBlendFuncSeparate);
                 (func)(src_rgb, dest_rgb, src_alpha, dest_alpha);
             }
         }
@@ -2779,7 +2779,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum) = mem::transmute(self.glBlendEquation);
+                let func: extern "system" fn(GLenum) = mem::transmute(self.glBlendEquation);
                 (func)(mode);
             }
         }
@@ -2792,7 +2792,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLenum) = mem::transmute(self.glBlendEquationSeparate);
+                let func: extern "system" fn(GLenum, GLenum) = mem::transmute(self.glBlendEquationSeparate);
                 (func)(mode_rgb, mode_alpha);
             }
         }
@@ -2805,7 +2805,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLboolean, GLboolean, GLboolean, GLboolean) = mem::transmute(self.glColorMask);
+                let func: extern "system" fn(GLboolean, GLboolean, GLboolean, GLboolean) = mem::transmute(self.glColorMask);
                 (func)(
                     r as GLboolean,
                     g as GLboolean,
@@ -2823,7 +2823,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum) = mem::transmute(self.glCullFace);
+                let func: extern "system" fn(GLenum) = mem::transmute(self.glCullFace);
                 (func)(mode);
             }
         }
@@ -2836,7 +2836,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum) = mem::transmute(self.glFrontFace);
+                let func: extern "system" fn(GLenum) = mem::transmute(self.glFrontFace);
                 (func)(mode);
             }
         }
@@ -2849,7 +2849,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum) = mem::transmute(self.glEnable);
+                let func: extern "system" fn(GLenum) = mem::transmute(self.glEnable);
                 (func)(cap);
             }
         }
@@ -2862,7 +2862,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum) = mem::transmute(self.glDisable);
+                let func: extern "system" fn(GLenum) = mem::transmute(self.glDisable);
                 (func)(cap);
             }
         }
@@ -2875,7 +2875,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLenum) = mem::transmute(self.glHint);
+                let func: extern "system" fn(GLenum, GLenum) = mem::transmute(self.glHint);
                 (func)(param_name, param_val);
             }
         }
@@ -2888,7 +2888,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum) -> GLboolean = mem::transmute(self.glIsEnabled);
+                let func: extern "system" fn(GLenum) -> GLboolean = mem::transmute(self.glIsEnabled);
                 (func)(cap)
             }
         }
@@ -2901,7 +2901,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLuint) -> GLboolean = mem::transmute(self.glIsShader);
+                let func: extern "system" fn(GLuint) -> GLboolean = mem::transmute(self.glIsShader);
                 (func)(shader)
             }
         }
@@ -2914,7 +2914,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum) -> GLboolean = mem::transmute(self.glIsTexture);
+                let func: extern "system" fn(GLenum) -> GLboolean = mem::transmute(self.glIsTexture);
                 (func)(texture)
             }
         }
@@ -2927,7 +2927,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum) -> GLboolean = mem::transmute(self.glIsFramebuffer);
+                let func: extern "system" fn(GLenum) -> GLboolean = mem::transmute(self.glIsFramebuffer);
                 (func)(framebuffer)
             }
         }
@@ -2940,7 +2940,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum) -> GLboolean = mem::transmute(self.glIsRenderbuffer);
+                let func: extern "system" fn(GLenum) -> GLboolean = mem::transmute(self.glIsRenderbuffer);
                 (func)(renderbuffer)
             }
         }
@@ -2953,7 +2953,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum) -> GLenum = mem::transmute(self.glCheckFramebufferStatus);
+                let func: extern "system" fn(GLenum) -> GLenum = mem::transmute(self.glCheckFramebufferStatus);
                 (func)(target)
             }
         }
@@ -2966,7 +2966,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLuint) = mem::transmute(self.glEnableVertexAttribArray);
+                let func: extern "system" fn(GLuint) = mem::transmute(self.glEnableVertexAttribArray);
                 (func)(index);
             }
         }
@@ -2979,7 +2979,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLuint) = mem::transmute(self.glDisableVertexAttribArray);
+                let func: extern "system" fn(GLuint) = mem::transmute(self.glDisableVertexAttribArray);
                 (func)(index);
             }
         }
@@ -2992,7 +2992,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLint, GLfloat) = mem::transmute(self.glUniform1f);
+                let func: extern "system" fn(GLint, GLfloat) = mem::transmute(self.glUniform1f);
                 (func)(location, v0);
             }
         }
@@ -3005,7 +3005,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLint, GLsizei, *const GLfloat) = mem::transmute(self.glUniform1fv);
+                let func: extern "system" fn(GLint, GLsizei, *const GLfloat) = mem::transmute(self.glUniform1fv);
                 (func)(location, values.len() as GLsizei, values.as_ptr());
             }
         }
@@ -3018,7 +3018,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLint, GLint) = mem::transmute(self.glUniform1i);
+                let func: extern "system" fn(GLint, GLint) = mem::transmute(self.glUniform1i);
                 (func)(location, v0);
             }
         }
@@ -3031,7 +3031,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLint, GLsizei, *const GLint) = mem::transmute(self.glUniform1iv);
+                let func: extern "system" fn(GLint, GLsizei, *const GLint) = mem::transmute(self.glUniform1iv);
                 (func)(location, values.len() as GLsizei, values.as_ptr());
             }
         }
@@ -3044,7 +3044,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLint, GLuint) = mem::transmute(self.glUniform1ui);
+                let func: extern "system" fn(GLint, GLuint) = mem::transmute(self.glUniform1ui);
                 (func)(location, v0);
             }
         }
@@ -3057,7 +3057,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLint, GLfloat, GLfloat) = mem::transmute(self.glUniform2f);
+                let func: extern "system" fn(GLint, GLfloat, GLfloat) = mem::transmute(self.glUniform2f);
                 (func)(location, v0, v1);
             }
         }
@@ -3070,7 +3070,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLint, GLsizei, *const GLfloat) = mem::transmute(self.glUniform2fv);
+                let func: extern "system" fn(GLint, GLsizei, *const GLfloat) = mem::transmute(self.glUniform2fv);
                 (func)(location, (values.len() / 2) as GLsizei, values.as_ptr());
             }
         }
@@ -3083,7 +3083,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLint, GLint, GLint) = mem::transmute(self.glUniform2i);
+                let func: extern "system" fn(GLint, GLint, GLint) = mem::transmute(self.glUniform2i);
                 (func)(location, v0, v1);
             }
         }
@@ -3096,7 +3096,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLint, GLsizei, *const GLint) = mem::transmute(self.glUniform2iv);
+                let func: extern "system" fn(GLint, GLsizei, *const GLint) = mem::transmute(self.glUniform2iv);
                 (func)(location, (values.len() / 2) as GLsizei, values.as_ptr());
             }
         }
@@ -3109,7 +3109,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLint, GLuint, GLuint) = mem::transmute(self.glUniform2ui);
+                let func: extern "system" fn(GLint, GLuint, GLuint) = mem::transmute(self.glUniform2ui);
                 (func)(location, v0, v1);
             }
         }
@@ -3122,7 +3122,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLint, GLfloat, GLfloat, GLfloat) = mem::transmute(self.glUniform3f);
+                let func: extern "system" fn(GLint, GLfloat, GLfloat, GLfloat) = mem::transmute(self.glUniform3f);
                 (func)(location, v0, v1, v2);
             }
         }
@@ -3135,7 +3135,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLint, GLsizei, *const GLfloat) = mem::transmute(self.glUniform3fv);
+                let func: extern "system" fn(GLint, GLsizei, *const GLfloat) = mem::transmute(self.glUniform3fv);
                 (func)(location, (values.len() / 3) as GLsizei, values.as_ptr());
             }
         }
@@ -3148,7 +3148,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLint, GLint, GLint, GLint) = mem::transmute(self.glUniform3i);
+                let func: extern "system" fn(GLint, GLint, GLint, GLint) = mem::transmute(self.glUniform3i);
                 (func)(location, v0, v1, v2);
             }
         }
@@ -3161,7 +3161,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLint, GLsizei, *const GLint) = mem::transmute(self.glUniform3iv);
+                let func: extern "system" fn(GLint, GLsizei, *const GLint) = mem::transmute(self.glUniform3iv);
                 (func)(location, (values.len() / 3) as GLsizei, values.as_ptr());
             }
         }
@@ -3174,7 +3174,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLint, GLuint, GLuint, GLuint) = mem::transmute(self.glUniform3ui);
+                let func: extern "system" fn(GLint, GLuint, GLuint, GLuint) = mem::transmute(self.glUniform3ui);
                 (func)(location, v0, v1, v2);
             }
         }
@@ -3187,7 +3187,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLint, GLfloat, GLfloat, GLfloat, GLfloat) = mem::transmute(self.glUniform4f);
+                let func: extern "system" fn(GLint, GLfloat, GLfloat, GLfloat, GLfloat) = mem::transmute(self.glUniform4f);
                 (func)(location, x, y, z, w);
             }
         }
@@ -3200,7 +3200,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLint, GLint, GLint, GLint, GLint) = mem::transmute(self.glUniform4i);
+                let func: extern "system" fn(GLint, GLint, GLint, GLint, GLint) = mem::transmute(self.glUniform4i);
                 (func)(location, x, y, z, w);
             }
         }
@@ -3213,7 +3213,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLint, GLsizei, *const GLint) = mem::transmute(self.glUniform4iv);
+                let func: extern "system" fn(GLint, GLsizei, *const GLint) = mem::transmute(self.glUniform4iv);
                 (func)(location, (values.len() / 4) as GLsizei, values.as_ptr());
             }
         }
@@ -3226,7 +3226,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLint, GLuint, GLuint, GLuint, GLuint) = mem::transmute(self.glUniform4ui);
+                let func: extern "system" fn(GLint, GLuint, GLuint, GLuint, GLuint) = mem::transmute(self.glUniform4ui);
                 (func)(location, x, y, z, w);
             }
         }
@@ -3239,7 +3239,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLint, GLsizei, *const GLfloat) = mem::transmute(self.glUniform4fv);
+                let func: extern "system" fn(GLint, GLsizei, *const GLfloat) = mem::transmute(self.glUniform4fv);
                 (func)(location, (values.len() / 4) as GLsizei, values.as_ptr());
             }
         }
@@ -3252,7 +3252,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLint, GLsizei, GLboolean, *const GLfloat) = mem::transmute(self.glUniformMatrix2fv);
+                let func: extern "system" fn(GLint, GLsizei, GLboolean, *const GLfloat) = mem::transmute(self.glUniformMatrix2fv);
                 (func)(
                     location,
                     (value.len() / 4) as GLsizei,
@@ -3270,7 +3270,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLint, GLsizei, GLboolean, *const GLfloat) = mem::transmute(self.glUniformMatrix3fv);
+                let func: extern "system" fn(GLint, GLsizei, GLboolean, *const GLfloat) = mem::transmute(self.glUniformMatrix3fv);
                 (func)(
                     location,
                     (value.len() / 9) as GLsizei,
@@ -3288,7 +3288,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLint, GLsizei, GLboolean, *const GLfloat) = mem::transmute(self.glUniformMatrix4fv);
+                let func: extern "system" fn(GLint, GLsizei, GLboolean, *const GLfloat) = mem::transmute(self.glUniformMatrix4fv);
                 (func)(
                     location,
                     (value.len() / 16) as GLsizei,
@@ -3306,7 +3306,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLboolean) = mem::transmute(self.glDepthMask);
+                let func: extern "system" fn(GLboolean) = mem::transmute(self.glDepthMask);
                 (func)(flag as GLboolean);
             }
         }
@@ -3319,7 +3319,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLclampd, GLclampd) = mem::transmute(self.glDepthRange);
+                let func: extern "system" fn(GLclampd, GLclampd) = mem::transmute(self.glDepthRange);
                 (func)(near as GLclampd, far as GLclampd);
             }
         }
@@ -3340,7 +3340,7 @@ macro_rules! impl_gl_context {
             let mut size = 0 as i32;
             let mut type_ = 0 as u32;
             unsafe {
-                let func: extern "C" fn(GLuint, GLuint, GLsizei, *mut GLsizei, *mut GLint, *mut GLenum, *mut GLchar) = mem::transmute(self.glGetActiveAttrib);
+                let func: extern "system" fn(GLuint, GLuint, GLsizei, *mut GLsizei, *mut GLint, *mut GLenum, *mut GLchar) = mem::transmute(self.glGetActiveAttrib);
                 (func)(
                     program,
                     index,
@@ -3372,7 +3372,7 @@ macro_rules! impl_gl_context {
             let mut type_: u32 = 0;
 
             unsafe {
-                let func: extern "C" fn(GLuint, GLuint, GLsizei, *mut GLsizei, *mut GLint, *mut GLenum, *mut GLchar) = mem::transmute(self.glGetActiveUniform);
+                let func: extern "system" fn(GLuint, GLuint, GLsizei, *mut GLsizei, *mut GLint, *mut GLenum, *mut GLchar) = mem::transmute(self.glGetActiveUniform);
                 (func)(
                     program,
                     index,
@@ -3404,7 +3404,7 @@ macro_rules! impl_gl_context {
             let mut result = Vec::with_capacity(indices.len());
             unsafe {
                 result.set_len(indices.len());
-                let func: extern "C" fn(GLuint, GLsizei, *const GLuint, GLenum, *mut GLint) = mem::transmute(self.glGetActiveUniformsiv);
+                let func: extern "system" fn(GLuint, GLsizei, *const GLuint, GLenum, *mut GLint) = mem::transmute(self.glGetActiveUniformsiv);
                 (func)(
                     program,
                     indices.len() as GLsizei,
@@ -3425,7 +3425,7 @@ macro_rules! impl_gl_context {
 
             let mut result = 0;
             unsafe {
-                let func: extern "C" fn(GLuint, GLuint, GLenum, *mut GLint) = mem::transmute(self.glGetActiveUniformBlockiv);
+                let func: extern "system" fn(GLuint, GLuint, GLenum, *mut GLint) = mem::transmute(self.glGetActiveUniformBlockiv);
                 (func)(program, index, pname, &mut result);
             }
             result
@@ -3447,7 +3447,7 @@ macro_rules! impl_gl_context {
             let mut result = Vec::with_capacity(count as usize);
             unsafe {
                 result.set_len(count as usize);
-                let func: extern "C" fn(GLuint, GLuint, GLenum, *mut GLint) = mem::transmute(self.glGetActiveUniformBlockiv);
+                let func: extern "system" fn(GLuint, GLuint, GLenum, *mut GLint) = mem::transmute(self.glGetActiveUniformBlockiv);
                 (func)(program, index, pname, result.as_mut_ptr());
             }
             result
@@ -3464,7 +3464,7 @@ macro_rules! impl_gl_context {
             let mut name = vec![0 as u8; buf_size as usize];
             let mut length: GLsizei = 0;
             unsafe {
-                let func: extern "C" fn(GLuint, GLuint, GLsizei, *mut GLsizei, *mut GLchar) = mem::transmute(self.glGetActiveUniformBlockName);
+                let func: extern "system" fn(GLuint, GLuint, GLsizei, *mut GLsizei, *mut GLchar) = mem::transmute(self.glGetActiveUniformBlockName);
                 (func)(
                     program,
                     index,
@@ -3487,7 +3487,7 @@ macro_rules! impl_gl_context {
 
             let name = encode_ascii(name);
             unsafe {
-                let func: extern "C" fn(GLuint, *const GLchar) -> c_int = mem::transmute(self.glGetAttribLocation);
+                let func: extern "system" fn(GLuint, *const GLchar) -> c_int = mem::transmute(self.glGetAttribLocation);
                 (func)(program, name.as_ptr())
             }
         }
@@ -3501,7 +3501,7 @@ macro_rules! impl_gl_context {
 
             let name = encode_ascii(name);
             unsafe {
-                let func: extern "C" fn(GLuint, *const c_char)  -> c_int = mem::transmute(self.glGetFragDataLocation);
+                let func: extern "system" fn(GLuint, *const c_char)  -> c_int = mem::transmute(self.glGetFragDataLocation);
                 (func)(program, name.as_ptr())
             }
         }
@@ -3515,7 +3515,7 @@ macro_rules! impl_gl_context {
 
             let name = encode_ascii(name);
             unsafe {
-                let func: extern "C" fn(GLuint, *const GLchar)  -> c_int = mem::transmute(self.glGetUniformLocation);
+                let func: extern "system" fn(GLuint, *const GLchar)  -> c_int = mem::transmute(self.glGetUniformLocation);
                 (func)(program, name.as_ptr())
             }
         }
@@ -3537,7 +3537,7 @@ macro_rules! impl_gl_context {
             let mut result = vec![0u8; max_len[0] as usize];
             let mut result_len = 0 as GLsizei;
             unsafe {
-                let func: extern "C" fn(GLuint, GLsizei, *mut GLsizei, *mut GLchar) = mem::transmute(self.glGetProgramInfoLog);
+                let func: extern "system" fn(GLuint, GLsizei, *mut GLsizei, *mut GLchar) = mem::transmute(self.glGetProgramInfoLog);
                 (func)(
                     program,
                     max_len[0] as GLsizei,
@@ -3559,7 +3559,7 @@ macro_rules! impl_gl_context {
                 _gl_impl_panic("glGetProgramiv");
                 return;
             }
-            let func: extern "C" fn(GLuint, GLenum, *mut GLint) = mem::transmute(self.glGetProgramiv);
+            let func: extern "system" fn(GLuint, GLenum, *mut GLint) = mem::transmute(self.glGetProgramiv);
             (func)(program, pname, result.as_mut_ptr());
         }
 
@@ -3584,7 +3584,7 @@ macro_rules! impl_gl_context {
             let mut out_len = 0;
             unsafe {
                 binary.set_len(len[0] as usize);
-                let func: extern "C" fn(GLuint, GLsizei, *mut GLsizei, *mut GLenum, *mut c_void) = mem::transmute(self.glGetProgramBinary);
+                let func: extern "system" fn(GLuint, GLsizei, *mut GLsizei, *mut GLenum, *mut c_void) = mem::transmute(self.glGetProgramBinary);
                 (func)(
                     program,
                     len[0],
@@ -3607,7 +3607,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLuint, GLenum, *const c_void, GLsizei) = mem::transmute(self.glProgramBinary);
+                let func: extern "system" fn(GLuint, GLenum, *const c_void, GLsizei) = mem::transmute(self.glProgramBinary);
                 (func)(
                     program,
                     format,
@@ -3623,7 +3623,7 @@ macro_rules! impl_gl_context {
                 return;
             }
             unsafe {
-                let func: extern "C" fn(GLuint, GLenum, GLint) = mem::transmute(self.glProgramParameteri);
+                let func: extern "system" fn(GLuint, GLenum, GLint) = mem::transmute(self.glProgramParameteri);
                 (func)(program, pname, value);
             }
         }
@@ -3634,7 +3634,7 @@ macro_rules! impl_gl_context {
                 _gl_impl_panic("glGetVertexAttribiv");
                 return;
             }
-            let func: extern "C" fn(GLuint, GLenum, *mut GLint) = mem::transmute(self.glGetVertexAttribiv);
+            let func: extern "system" fn(GLuint, GLenum, *mut GLint) = mem::transmute(self.glGetVertexAttribiv);
             (func)(index, pname, result.as_mut_ptr());
         }
 
@@ -3644,7 +3644,7 @@ macro_rules! impl_gl_context {
                 _gl_impl_panic("glGetVertexAttribfv");
                 return;
             }
-            let func: extern "C" fn(GLuint, GLenum, *mut GLfloat) = mem::transmute(self.glGetVertexAttribfv);
+            let func: extern "system" fn(GLuint, GLenum, *mut GLfloat) = mem::transmute(self.glGetVertexAttribfv);
             (func)(index, pname, result.as_mut_ptr());
         }
 
@@ -3657,7 +3657,7 @@ macro_rules! impl_gl_context {
 
             let mut result = 0 as *mut GLvoid;
             unsafe {
-                let func: extern "C" fn(GLuint, GLenum, *mut *mut GLvoid) = mem::transmute(self.glGetVertexAttribPointerv);
+                let func: extern "system" fn(GLuint, GLenum, *mut *mut GLvoid) = mem::transmute(self.glGetVertexAttribPointerv);
                 (func)(index, pname, &mut result)
             }
             result as GLsizeiptr
@@ -3672,7 +3672,7 @@ macro_rules! impl_gl_context {
 
             let mut result = 0 as GLint;
             unsafe {
-                let func: extern "C" fn(GLenum, GLenum, *mut GLint) = mem::transmute(self.glGetBufferParameteriv);
+                let func: extern "system" fn(GLenum, GLenum, *mut GLint) = mem::transmute(self.glGetBufferParameteriv);
                 (func)(target, pname, &mut result);
             }
             result
@@ -3695,7 +3695,7 @@ macro_rules! impl_gl_context {
             let mut result = vec![0u8; max_len[0] as usize];
             let mut result_len = 0 as GLsizei;
             unsafe {
-                let func: extern "C" fn(GLuint, GLsizei, *mut GLsizei, *mut GLchar) = mem::transmute(self.glGetShaderInfoLog);
+                let func: extern "system" fn(GLuint, GLsizei, *mut GLsizei, *mut GLchar) = mem::transmute(self.glGetShaderInfoLog);
                 (func)(
                     shader,
                     max_len[0] as GLsizei,
@@ -3719,7 +3719,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum) -> *mut GLubyte = mem::transmute(self.glGetString);
+                let func: extern "system" fn(GLenum) -> *mut GLubyte = mem::transmute(self.glGetString);
                 let llstr = (func)(which);
                 if !llstr.is_null() {
                     cstr_from_ptr(llstr as *const c_char).to_string()
@@ -3737,7 +3737,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLuint) -> *mut GLubyte = mem::transmute(self.glGetStringi);
+                let func: extern "system" fn(GLenum, GLuint) -> *mut GLubyte = mem::transmute(self.glGetStringi);
                 let llstr = (func)(which, index);
                 if !llstr.is_null() {
                     cstr_from_ptr(llstr as *const c_char).to_string()
@@ -3754,7 +3754,7 @@ macro_rules! impl_gl_context {
                 return;
             }
 
-            let func: extern "C" fn(GLuint, GLenum, *mut GLint) = mem::transmute(self.glGetShaderiv);
+            let func: extern "system" fn(GLuint, GLenum, *mut GLint) = mem::transmute(self.glGetShaderiv);
             (func)(shader, pname, result.as_mut_ptr());
         }
 
@@ -3796,7 +3796,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLuint) = mem::transmute(self.glCompileShader);
+                let func: extern "system" fn(GLuint) = mem::transmute(self.glCompileShader);
                 (func)(shader);
             }
         }
@@ -3809,7 +3809,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn() -> GLuint = mem::transmute(self.glCreateProgram);
+                let func: extern "system" fn() -> GLuint = mem::transmute(self.glCreateProgram);
                 return (func)();
             }
         }
@@ -3822,7 +3822,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLuint) = mem::transmute(self.glDeleteProgram);
+                let func: extern "system" fn(GLuint) = mem::transmute(self.glDeleteProgram);
                 (func)(program);
             }
         }
@@ -3835,7 +3835,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum) -> GLuint = mem::transmute(self.glCreateShader);
+                let func: extern "system" fn(GLenum) -> GLuint = mem::transmute(self.glCreateShader);
                 return (func)(shader_type);
             }
         }
@@ -3848,7 +3848,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLuint) = mem::transmute(self.glDeleteShader);
+                let func: extern "system" fn(GLuint) = mem::transmute(self.glDeleteShader);
                 (func)(shader);
             }
         }
@@ -3861,7 +3861,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLuint, GLuint) = mem::transmute(self.glDetachShader);
+                let func: extern "system" fn(GLuint, GLuint) = mem::transmute(self.glDetachShader);
                 (func)(program, shader);
             }
         }
@@ -3874,7 +3874,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLuint) = mem::transmute(self.glLinkProgram);
+                let func: extern "system" fn(GLuint) = mem::transmute(self.glLinkProgram);
                 return (func)(program);
             }
         }
@@ -3887,7 +3887,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLclampf, GLclampf, GLclampf, GLclampf) = mem::transmute(self.glClearColor);
+                let func: extern "system" fn(GLclampf, GLclampf, GLclampf, GLclampf) = mem::transmute(self.glClearColor);
                 (func)(r, g, b, a);
             }
         }
@@ -3900,7 +3900,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLbitfield) = mem::transmute(self.glClear);
+                let func: extern "system" fn(GLbitfield) = mem::transmute(self.glClear);
                 (func)(buffer_mask);
             }
         }
@@ -3913,7 +3913,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLclampd) = mem::transmute(self.glClearDepth);
+                let func: extern "system" fn(GLclampd) = mem::transmute(self.glClearDepth);
                 (func)(depth as GLclampd);
             }
         }
@@ -3926,7 +3926,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLint) = mem::transmute(self.glClearStencil);
+                let func: extern "system" fn(GLint) = mem::transmute(self.glClearStencil);
                 (func)(s);
             }
         }
@@ -3939,7 +3939,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn() = mem::transmute(self.glFlush);
+                let func: extern "system" fn() = mem::transmute(self.glFlush);
                 (func)();
             }
         }
@@ -3952,7 +3952,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn() = mem::transmute(self.glFinish);
+                let func: extern "system" fn() = mem::transmute(self.glFinish);
                 (func)();
             }
         }
@@ -3965,7 +3965,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn() -> GLenum = mem::transmute(self.glGetError);
+                let func: extern "system" fn() -> GLenum = mem::transmute(self.glGetError);
                 (func)()
             }
         }
@@ -3978,7 +3978,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLuint) = mem::transmute(self.glStencilMask);
+                let func: extern "system" fn(GLuint) = mem::transmute(self.glStencilMask);
                 (func)(mask)
             }
         }
@@ -3991,7 +3991,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLuint) = mem::transmute(self.glStencilMaskSeparate);
+                let func: extern "system" fn(GLenum, GLuint) = mem::transmute(self.glStencilMaskSeparate);
                 (func)(face, mask)
             }
         }
@@ -4004,7 +4004,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let glStencilFunc: extern "C" fn(GLenum, GLint, GLuint) = mem::transmute(self.glStencilFunc);
+                let glStencilFunc: extern "system" fn(GLenum, GLint, GLuint) = mem::transmute(self.glStencilFunc);
                 (glStencilFunc)(func, ref_, mask)
             }
         }
@@ -4017,7 +4017,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let glStencilFuncSeparate: extern "C" fn(GLenum, GLenum, GLint, GLuint) = mem::transmute(self.glStencilFuncSeparate);
+                let glStencilFuncSeparate: extern "system" fn(GLenum, GLenum, GLint, GLuint) = mem::transmute(self.glStencilFuncSeparate);
                 (glStencilFuncSeparate)(face, func, ref_, mask)
             }
         }
@@ -4030,7 +4030,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLenum, GLenum) = mem::transmute(self.glStencilOp);
+                let func: extern "system" fn(GLenum, GLenum, GLenum) = mem::transmute(self.glStencilOp);
                 (func)(sfail, dpfail, dppass)
             }
         }
@@ -4043,7 +4043,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLenum, GLenum, GLenum) = mem::transmute(self.glStencilOpSeparate);
+                let func: extern "system" fn(GLenum, GLenum, GLenum, GLenum) = mem::transmute(self.glStencilOpSeparate);
                 (func)(face, sfail, dpfail, dppass)
             }
         }
@@ -4078,7 +4078,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum) = mem::transmute(self.glGenerateMipmap);
+                let func: extern "system" fn(GLenum) = mem::transmute(self.glGenerateMipmap);
                 (func)(target)
             }
         }
@@ -4091,7 +4091,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLsizei, *const GLchar) = mem::transmute(self.glInsertEventMarkerEXT);
+                let func: extern "system" fn(GLsizei, *const GLchar) = mem::transmute(self.glInsertEventMarkerEXT);
                 (func)(message.len() as GLsizei, message.as_ptr() as *const _);
             }
         }
@@ -4104,7 +4104,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLsizei, *const GLchar) = mem::transmute(self.glPushGroupMarkerEXT);
+                let func: extern "system" fn(GLsizei, *const GLchar) = mem::transmute(self.glPushGroupMarkerEXT);
                 (func)(message.len() as GLsizei, message.as_ptr() as *const _);
             }
         }
@@ -4117,7 +4117,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn() = mem::transmute(self.glPopGroupMarkerEXT);
+                let func: extern "system" fn() = mem::transmute(self.glPopGroupMarkerEXT);
                 (func)();
             }
         }
@@ -4131,7 +4131,7 @@ macro_rules! impl_gl_context {
 
             unsafe {
                 // TODO: correct?
-                let func: extern "C" fn(GLenum, GLenum, GLuint, GLenum, GLsizei, *const c_char) = mem::transmute(self.glDebugMessageInsertKHR);
+                let func: extern "system" fn(GLenum, GLenum, GLuint, GLenum, GLsizei, *const c_char) = mem::transmute(self.glDebugMessageInsertKHR);
                 (func)(source, type_, id, severity, message.len() as GLsizei, message.as_ptr() as *const _);
             }
         }
@@ -4144,7 +4144,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLuint, GLsizei, *const c_char) = mem::transmute(self.glPushDebugGroupKHR);
+                let func: extern "system" fn(GLenum, GLuint, GLsizei, *const c_char) = mem::transmute(self.glPushDebugGroupKHR);
                 (func)(source, id, message.len() as GLsizei, message.as_ptr() as *const _);
             }
         }
@@ -4157,7 +4157,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn() = mem::transmute(self.glPopDebugGroupKHR);
+                let func: extern "system" fn() = mem::transmute(self.glPopDebugGroupKHR);
                 (func)();
             }
         }
@@ -4170,7 +4170,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLbitfield) -> GLsync = mem::transmute(self.glFenceSync);
+                let func: extern "system" fn(GLenum, GLbitfield) -> GLsync = mem::transmute(self.glFenceSync);
                 (func)(condition, flags) as *const _
             }
         }
@@ -4183,7 +4183,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLsync, GLbitfield, GLuint64) -> GLenum = mem::transmute(self.glClientWaitSync);
+                let func: extern "system" fn(GLsync, GLbitfield, GLuint64) -> GLenum = mem::transmute(self.glClientWaitSync);
                 (func)(sync as *const _, flags, timeout)
             }
         }
@@ -4196,7 +4196,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLsync, GLbitfield, GLuint64) = mem::transmute(self.glWaitSync);
+                let func: extern "system" fn(GLsync, GLbitfield, GLuint64) = mem::transmute(self.glWaitSync);
                 (func)(sync as *const _, flags, timeout);
             }
         }
@@ -4209,7 +4209,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLsizei, *const c_void) = mem::transmute(self.glTextureRangeAPPLE);
+                let func: extern "system" fn(GLenum, GLsizei, *const c_void) = mem::transmute(self.glTextureRangeAPPLE);
                 (func)(
                     target,
                     data.len() as GLsizei,
@@ -4226,7 +4226,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLsync) = mem::transmute(self.glDeleteSync);
+                let func: extern "system" fn(GLsync) = mem::transmute(self.glDeleteSync);
                 (func)(sync as *const _);
             }
         }
@@ -4241,7 +4241,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLsizei, *mut GLuint) = mem::transmute(self.glGenFencesAPPLE);
+                let func: extern "system" fn(GLsizei, *mut GLuint) = mem::transmute(self.glGenFencesAPPLE);
                 (func)(n, result.as_mut_ptr());
             }
             result
@@ -4255,7 +4255,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLsizei, *const GLuint) = mem::transmute(self.glDeleteFencesAPPLE);
+                let func: extern "system" fn(GLsizei, *const GLuint) = mem::transmute(self.glDeleteFencesAPPLE);
                 (func)(fences.len() as GLsizei, fences.as_ptr());
             }
         }
@@ -4268,7 +4268,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLuint) = mem::transmute(self.glSetFenceAPPLE);
+                let func: extern "system" fn(GLuint) = mem::transmute(self.glSetFenceAPPLE);
                 (func)(fence);
             }
         }
@@ -4281,7 +4281,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLuint) = mem::transmute(self.glFinishFenceAPPLE);
+                let func: extern "system" fn(GLuint) = mem::transmute(self.glFinishFenceAPPLE);
                 (func)(fence);
             }
         }
@@ -4294,7 +4294,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLuint) = mem::transmute(self.glTestFenceAPPLE);
+                let func: extern "system" fn(GLuint) = mem::transmute(self.glTestFenceAPPLE);
                 (func)(fence);
             }
         }
@@ -4307,7 +4307,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLuint) -> GLboolean = mem::transmute(self.glTestObjectAPPLE);
+                let func: extern "system" fn(GLenum, GLuint) -> GLboolean = mem::transmute(self.glTestObjectAPPLE);
                 (func)(object, name)
             }
         }
@@ -4321,7 +4321,7 @@ macro_rules! impl_gl_context {
 
             unsafe {
                 // the spec has a typo for name as GLint instead of GLuint
-                let func: extern "C" fn(GLenum, GLint) = mem::transmute(self.glFinishObjectAPPLE);
+                let func: extern "system" fn(GLenum, GLint) = mem::transmute(self.glFinishObjectAPPLE);
                 (func)(object, name as GLint);
             }
         }
@@ -4342,7 +4342,7 @@ macro_rules! impl_gl_context {
             let c_string = encode_ascii(name);
 
             unsafe {
-                let func: extern "C" fn(GLuint, GLuint, GLuint, *const c_char) = mem::transmute(self.glBindFragDataLocationIndexed);
+                let func: extern "system" fn(GLuint, GLuint, GLuint, *const c_char) = mem::transmute(self.glBindFragDataLocationIndexed);
                 (func)(
                     program,
                     color_number,
@@ -4362,7 +4362,7 @@ macro_rules! impl_gl_context {
             let c_string = encode_ascii(name);
 
             unsafe {
-                let func: extern "C" fn(GLuint, *const c_char) -> GLint = mem::transmute(self.glGetFragDataIndex);
+                let func: extern "system" fn(GLuint, *const c_char) -> GLint = mem::transmute(self.glGetFragDataIndex);
                 (func)(program, c_string.as_ptr())
             }
         }
@@ -4392,7 +4392,7 @@ macro_rules! impl_gl_context {
 
             loop {
                 let count = unsafe {
-                    let func: extern "C" fn(GLuint, GLsizei, *mut GLenum, *mut GLenum, *mut GLuint, *mut GLenum, *mut GLsizei, *mut GLchar) -> GLuint = mem::transmute(self.glGetDebugMessageLog);
+                    let func: extern "system" fn(GLuint, GLsizei, *mut GLenum, *mut GLenum, *mut GLuint, *mut GLenum, *mut GLsizei, *mut GLchar) -> GLuint = mem::transmute(self.glGetDebugMessageLog);
                     (func)(
                         CAPACITY as _,
                         msg_data.len() as _,
@@ -4439,7 +4439,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn() = mem::transmute(self.glBlendBarrierKHR);
+                let func: extern "system" fn() = mem::transmute(self.glBlendBarrierKHR);
                 (func)();
             }
         }
@@ -4519,7 +4519,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLsizeiptr, *const GLvoid, GLbitfield) = mem::transmute(self.glBufferStorage);
+                let func: extern "system" fn(GLenum, GLsizeiptr, *const GLvoid, GLbitfield) = mem::transmute(self.glBufferStorage);
                 (func)(target, size, data, flags);
             }
         }
@@ -4532,7 +4532,7 @@ macro_rules! impl_gl_context {
             }
 
             unsafe {
-                let func: extern "C" fn(GLenum, GLintptr, GLsizeiptr) = mem::transmute(self.glFlushMappedBufferRange);
+                let func: extern "system" fn(GLenum, GLintptr, GLsizeiptr) = mem::transmute(self.glFlushMappedBufferRange);
                 (func)(target, offset, length);
             }
         }
