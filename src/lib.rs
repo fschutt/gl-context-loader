@@ -969,6 +969,9 @@ macro_rules! impl_gl_context {
             data: *const GLvoid,
             usage: GLenum,
         ) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glBufferData"); }
+
             if self.glBufferData == ptr::null_mut() {
                 _gl_impl_panic("glBufferData");
                 return;
@@ -987,6 +990,9 @@ macro_rules! impl_gl_context {
             size: GLsizeiptr,
             data: *const GLvoid,
         ) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glBufferSubData"); }
+
             if self.glBufferSubData == ptr::null_mut() {
                 _gl_impl_panic("glBufferSubData");
                 return;
@@ -999,6 +1005,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn map_buffer(&self, target: GLenum, access: GLbitfield) -> *mut GLvoid {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glMapBuffer"); }
+
             if self.glMapBuffer == ptr::null_mut() {
                 _gl_impl_panic("glMapBuffer");
                 return ptr::null_mut();
@@ -1017,6 +1026,9 @@ macro_rules! impl_gl_context {
             length: GLsizeiptr,
             access: GLbitfield,
         ) -> *mut GLvoid {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glMapBufferRange"); }
+
             if self.glMapBufferRange == ptr::null_mut() {
                 _gl_impl_panic("glMapBufferRange");
                 return ptr::null_mut();
@@ -1029,6 +1041,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn unmap_buffer(&self, target: GLenum) -> GLboolean {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glUnmapBuffer"); }
+
             if self.glUnmapBuffer == ptr::null_mut() {
                 _gl_impl_panic("glUnmapBuffer");
                 return 1;
@@ -1040,6 +1055,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn tex_buffer(&self, target: GLenum, internal_format: GLenum, buffer: GLuint) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glTexBuffer"); }
+
             if self.glTexBuffer == ptr::null_mut() {
                 _gl_impl_panic("glTexBuffer");
                 return;
@@ -1051,6 +1069,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn shader_source(&self, shader: GLuint, strings: &[&[u8]]) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glShaderSource"); }
+
             if self.glShaderSource == ptr::null_mut() {
                 _gl_impl_panic("glShaderSource");
                 return;
@@ -1062,6 +1083,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn read_buffer(&self, mode: GLenum) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glReadBuffer"); }
+
             if self.glReadBuffer == ptr::null_mut() {
                 _gl_impl_panic("glReadBuffer");
                 return;
@@ -1082,10 +1106,16 @@ macro_rules! impl_gl_context {
             pixel_type: GLenum,
             dst_buffer: &mut [u8],
         ) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glReadPixels"); }
+
             if self.glReadPixels == ptr::null_mut() {
                 _gl_impl_panic("glReadPixels");
                 return;
             }
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glPixelStorei"); }
 
             if self.glPixelStorei == ptr::null_mut() {
                 _gl_impl_panic("glPixelStorei");
@@ -1161,6 +1191,9 @@ macro_rules! impl_gl_context {
             format: GLenum,
             pixel_type: GLenum,
         ) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glReadPixels"); }
+
             if self.glReadPixels == ptr::null_mut() {
                 _gl_impl_panic("glReadPixels");
                 return;
@@ -1171,6 +1204,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn sample_coverage(&self, value: GLclampf, invert: bool) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glSampleCoverage"); }
+
             if self.glSampleCoverage == ptr::null_mut() {
                 _gl_impl_panic("glSampleCoverage");
                 return;
@@ -1183,6 +1219,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn polygon_offset(&self, factor: GLfloat, units: GLfloat) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glPolygonOffset"); }
+
             if self.glPolygonOffset == ptr::null_mut() {
                 _gl_impl_panic("glPolygonOffset");
                 return;
@@ -1195,6 +1234,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn pixel_store_i(&self, name: GLenum, param: GLint) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glPixelStorei"); }
+
             if self.glPixelStorei == ptr::null_mut() {
                 _gl_impl_panic("glPixelStorei");
                 return;
@@ -1207,6 +1249,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn gen_buffers(&self, n: GLsizei) -> Vec<GLuint> {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGenBuffers"); }
+
             if self.glGenBuffers == ptr::null_mut() {
                 _gl_impl_panic("glGenBuffers");
                 return Vec::new();
@@ -1221,6 +1266,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn gen_renderbuffers(&self, n: GLsizei) -> Vec<GLuint> {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGenRenderbuffers"); }
+
             if self.glGenRenderbuffers == ptr::null_mut() {
                 _gl_impl_panic("glGenRenderbuffers");
                 return Vec::new();
@@ -1235,6 +1283,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn gen_framebuffers(&self, n: GLsizei) -> Vec<GLuint> {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGenFramebuffers"); }
+
             if self.glGenFramebuffers == ptr::null_mut() {
                 _gl_impl_panic("glGenFramebuffers");
                 return Vec::new();
@@ -1249,6 +1300,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn gen_textures(&self, n: GLsizei) -> Vec<GLuint> {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGenTextures"); }
+
             if self.glGenTextures == ptr::null_mut() {
                 _gl_impl_panic("glGenTextures");
                 return Vec::new();
@@ -1263,6 +1317,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn gen_vertex_arrays(&self, n: GLsizei) -> Vec<GLuint> {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGenVertexArrays"); }
+
             if self.glGenVertexArrays == ptr::null_mut() {
                 _gl_impl_panic("glGenVertexArrays");
                 return Vec::new();
@@ -1277,6 +1334,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn gen_vertex_arrays_apple(&self, n: GLsizei) -> Vec<GLuint> {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGenVertexArraysAPPLE"); }
+
             if self.glGenVertexArraysAPPLE == ptr::null_mut() {
                 _gl_impl_panic("glGenVertexArraysAPPLE");
                 return Vec::new();
@@ -1291,6 +1351,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn gen_queries(&self, n: GLsizei) -> Vec<GLuint> {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGenQueries"); }
+
             if self.glGenQueries == ptr::null_mut() {
                 _gl_impl_panic("glGenQueries");
                 return Vec::new();
@@ -1305,6 +1368,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn begin_query(&self, target: GLenum, id: GLuint) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glBeginQuery"); }
+
             if self.glBeginQuery == ptr::null_mut() {
                 _gl_impl_panic("glBeginQuery");
                 return;
@@ -1317,6 +1383,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn end_query(&self, target: GLenum) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glEndQuery"); }
+
             if self.glEndQuery == ptr::null_mut() {
                 _gl_impl_panic("glEndQuery");
                 return;
@@ -1329,6 +1398,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn query_counter(&self, id: GLuint, target: GLenum) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glQueryCounter"); }
+
             if self.glQueryCounter == ptr::null_mut() {
                 _gl_impl_panic("glQueryCounter");
                 return;
@@ -1341,6 +1413,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn get_query_object_iv(&self, id: GLuint, pname: GLenum) -> i32 {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetQueryObjectiv"); }
+
             if self.glGetQueryObjectiv == ptr::null_mut() {
                 _gl_impl_panic("glGetQueryObjectiv");
                 return 0;
@@ -1353,6 +1428,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn get_query_object_uiv(&self, id: GLuint, pname: GLenum) -> u32 {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetQueryObjectuiv"); }
+
             if self.glGetQueryObjectuiv == ptr::null_mut() {
                 _gl_impl_panic("glGetQueryObjectuiv");
                 return 0;
@@ -1365,6 +1443,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn get_query_object_i64v(&self, id: GLuint, pname: GLenum) -> i64 {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetQueryObjecti64v"); }
+
             if self.glGetQueryObjecti64v == ptr::null_mut() {
                 _gl_impl_panic("glGetQueryObjecti64v");
                 return 0;
@@ -1377,6 +1458,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn get_query_object_ui64v(&self, id: GLuint, pname: GLenum) -> u64 {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetQueryObjectui64v"); }
+
             if self.glGetQueryObjectui64v == ptr::null_mut() {
                 _gl_impl_panic("glGetQueryObjectui64v");
                 return 0;
@@ -1389,6 +1473,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn delete_queries(&self, queries: &[GLuint]) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glDeleteQueries"); }
+
             if self.glDeleteQueries == ptr::null_mut() {
                 _gl_impl_panic("glDeleteQueries");
                 return;
@@ -1401,6 +1488,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn delete_vertex_arrays(&self, vertex_arrays: &[GLuint]) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glDeleteVertexArrays"); }
+
             if self.glDeleteVertexArrays == ptr::null_mut() {
                 _gl_impl_panic("glDeleteVertexArrays");
                 return;
@@ -1413,6 +1503,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn delete_vertex_arrays_apple(&self, vertex_arrays: &[GLuint]) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glDeleteVertexArraysAPPLE"); }
+
             if self.glDeleteVertexArraysAPPLE == ptr::null_mut() {
                 _gl_impl_panic("glDeleteVertexArraysAPPLE");
                 return;
@@ -1425,6 +1518,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn delete_buffers(&self, buffers: &[GLuint]) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glDeleteBuffers"); }
+
             if self.glDeleteBuffers == ptr::null_mut() {
                 _gl_impl_panic("glDeleteBuffers");
                 return;
@@ -1437,6 +1533,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn delete_renderbuffers(&self, renderbuffers: &[GLuint]) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glDeleteRenderbuffers"); }
+
             if self.glDeleteRenderbuffers == ptr::null_mut() {
                 _gl_impl_panic("glDeleteRenderbuffers");
                 return;
@@ -1449,6 +1548,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn delete_framebuffers(&self, framebuffers: &[GLuint]) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glDeleteFramebuffers"); }
+
             if self.glDeleteFramebuffers == ptr::null_mut() {
                 _gl_impl_panic("glDeleteFramebuffers");
                 return;
@@ -1461,6 +1563,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn delete_textures(&self, textures: &[GLuint]) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glDeleteTextures"); }
+
             if self.glDeleteTextures == ptr::null_mut() {
                 _gl_impl_panic("glDeleteTextures");
                 return;
@@ -1479,6 +1584,9 @@ macro_rules! impl_gl_context {
             renderbuffertarget: GLenum,
             renderbuffer: GLuint,
         ) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glFramebufferRenderbuffer"); }
+
             if self.glFramebufferRenderbuffer == ptr::null_mut() {
                 _gl_impl_panic("glFramebufferRenderbuffer");
                 return;
@@ -1497,6 +1605,9 @@ macro_rules! impl_gl_context {
             width: GLsizei,
             height: GLsizei,
         ) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glRenderbufferStorage"); }
+
             if self.glRenderbufferStorage == ptr::null_mut() {
                 _gl_impl_panic("glRenderbufferStorage");
                 return;
@@ -1509,6 +1620,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn depth_func(&self, func: GLenum) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glDepthFunc"); }
+
             if self.glDepthFunc == ptr::null_mut() {
                 _gl_impl_panic("glDepthFunc");
                 return;
@@ -1521,6 +1635,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn active_texture(&self, texture: GLenum) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glActiveTexture"); }
+
             if self.glActiveTexture == ptr::null_mut() {
                 _gl_impl_panic("glActiveTexture");
                 return;
@@ -1533,6 +1650,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn attach_shader(&self, program: GLuint, shader: GLuint) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glAttachShader"); }
+
             if self.glAttachShader == ptr::null_mut() {
                 _gl_impl_panic("glAttachShader");
                 return;
@@ -1545,6 +1665,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn bind_attrib_location(&self, program: GLuint, index: GLuint, name: &str) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glBindAttribLocation"); }
 
             if self.glBindAttribLocation == ptr::null_mut() {
                 _gl_impl_panic("glBindAttribLocation");
@@ -1560,6 +1683,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? unsafe fn get_uniform_iv(&self, program: GLuint, location: GLint, result: &mut [GLint]) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetUniformiv"); }
+
             if self.glGetUniformiv == ptr::null_mut() {
                 _gl_impl_panic("glGetUniformiv");
                 return;
@@ -1570,6 +1696,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? unsafe fn get_uniform_fv(&self, program: GLuint, location: GLint, result: &mut [GLfloat]) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetUniformfv"); }
+
             if self.glGetUniformfv == ptr::null_mut() {
                 _gl_impl_panic("glGetUniformfv");
                 return;
@@ -1580,6 +1709,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn get_uniform_block_index(&self, program: GLuint, name: &str) -> GLuint {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetUniformBlockIndex"); }
+
             if self.glGetUniformBlockIndex == ptr::null_mut() {
                 _gl_impl_panic("glGetUniformBlockIndex");
                 return 0;
@@ -1599,6 +1731,9 @@ macro_rules! impl_gl_context {
         // ---------------------------------------------------------------------------------------------------------------------------
 
         $( $opt )? fn get_uniform_indices(&self, program: GLuint, names: &[&str]) -> Vec<GLuint> {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetUniformIndices"); }
 
             if self.glGetUniformIndices == ptr::null_mut() {
                 _gl_impl_panic("glGetUniformIndices");
@@ -1622,6 +1757,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn bind_buffer_base(&self, target: GLenum, index: GLuint, buffer: GLuint) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glBindBufferBase"); }
+
             if self.glBindBufferBase == ptr::null_mut() {
                 _gl_impl_panic("glBindBufferBase");
                 return;
@@ -1642,6 +1780,9 @@ macro_rules! impl_gl_context {
             size: GLsizeiptr,
         ) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glBindBufferRange"); }
+
             if self.glBindBufferRange == ptr::null_mut() {
                 _gl_impl_panic("glBindBufferRange");
                 return;
@@ -1660,6 +1801,9 @@ macro_rules! impl_gl_context {
             uniform_block_binding: GLuint,
         ) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glUniformBlockBinding"); }
+
             if self.glUniformBlockBinding == ptr::null_mut() {
                 _gl_impl_panic("glUniformBlockBinding");
                 return;
@@ -1672,6 +1816,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn bind_buffer(&self, target: GLenum, buffer: GLuint) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glBindBuffer"); }
 
             if self.glBindBuffer == ptr::null_mut() {
                 _gl_impl_panic("glBindBuffer");
@@ -1686,6 +1833,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn bind_vertex_array(&self, vao: GLuint) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glBindVertexArray"); }
+
             if self.glBindVertexArray == ptr::null_mut() {
                 _gl_impl_panic("glBindVertexArray");
                 return;
@@ -1698,6 +1848,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn bind_vertex_array_apple(&self, vao: GLuint) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glBindVertexArrayAPPLE"); }
 
             if self.glBindVertexArrayAPPLE == ptr::null_mut() {
                 _gl_impl_panic("glBindVertexArrayAPPLE");
@@ -1712,6 +1865,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn bind_renderbuffer(&self, target: GLenum, renderbuffer: GLuint) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glBindRenderbuffer"); }
+
             if self.glBindRenderbuffer == ptr::null_mut() {
                 _gl_impl_panic("glBindRenderbuffer");
                 return;
@@ -1724,6 +1880,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn bind_framebuffer(&self, target: GLenum, framebuffer: GLuint) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glBindFramebuffer"); }
 
             if self.glBindFramebuffer == ptr::null_mut() {
                 _gl_impl_panic("glBindFramebuffer");
@@ -1738,6 +1897,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn bind_texture(&self, target: GLenum, texture: GLuint) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glBindTexture"); }
+
             if self.glBindTexture == ptr::null_mut() {
                 _gl_impl_panic("glBindTexture");
                 return;
@@ -1750,6 +1912,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn draw_buffers(&self, bufs: &[GLenum]) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glDrawBuffers"); }
 
             if self.glDrawBuffers == ptr::null_mut() {
                 _gl_impl_panic("glDrawBuffers");
@@ -1775,6 +1940,9 @@ macro_rules! impl_gl_context {
             ty: GLenum,
             opt_data: Option<&[u8]>,
         ) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glTexImage2D"); }
+
             if self.glTexImage2D == ptr::null_mut() {
                 _gl_impl_panic("glTexImage2D");
                 return;
@@ -1825,6 +1993,9 @@ macro_rules! impl_gl_context {
             data: &[u8],
         ) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glCompressedTexImage2D"); }
+
             if self.glCompressedTexImage2D == ptr::null_mut() {
                 _gl_impl_panic("glCompressedTexImage2D");
                 return;
@@ -1856,6 +2027,9 @@ macro_rules! impl_gl_context {
             format: GLenum,
             data: &[u8],
         ) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glCompressedTexSubImage2D"); }
+
             if self.glCompressedTexSubImage2D == ptr::null_mut() {
                 _gl_impl_panic("glCompressedTexSubImage2D");
                 return;
@@ -1891,6 +2065,9 @@ macro_rules! impl_gl_context {
             ty: GLenum,
             opt_data: Option<&[u8]>,
         ) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glTexImage3D"); }
+
             if self.glTexImage3D == ptr::null_mut() {
                 _gl_impl_panic("glTexImage3D");
                 return;
@@ -1928,6 +2105,9 @@ macro_rules! impl_gl_context {
             height: GLsizei,
             border: GLint,
         ) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glCopyTexImage2D"); }
+
             if self.glCopyTexImage2D == ptr::null_mut() {
                 _gl_impl_panic("glCopyTexImage2D");
                 return;
@@ -1959,6 +2139,9 @@ macro_rules! impl_gl_context {
             width: GLsizei,
             height: GLsizei,
         ) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glCopyTexSubImage2D"); }
+
             if self.glCopyTexSubImage2D == ptr::null_mut() {
                 _gl_impl_panic("glCopyTexSubImage2D");
                 return;
@@ -1982,6 +2165,9 @@ macro_rules! impl_gl_context {
             width: GLsizei,
             height: GLsizei,
         ) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glCopyTexSubImage3D"); }
+
             if self.glCopyTexSubImage3D == ptr::null_mut() {
                 _gl_impl_panic("glCopyTexSubImage3D");
                 return;
@@ -2007,6 +2193,9 @@ macro_rules! impl_gl_context {
             ty: GLenum,
             data: &[u8],
         ) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glTexSubImage2D"); }
+
             if self.glTexSubImage2D == ptr::null_mut() {
                 _gl_impl_panic("glTexSubImage2D");
                 return;
@@ -2040,6 +2229,9 @@ macro_rules! impl_gl_context {
             ty: GLenum,
             offset: usize,
         ) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glTexSubImage2D"); }
+
             if self.glTexSubImage2D == ptr::null_mut() {
                 _gl_impl_panic("glTexSubImage2D");
                 return;
@@ -2075,6 +2267,9 @@ macro_rules! impl_gl_context {
             ty: GLenum,
             data: &[u8],
         ) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glTexSubImage3D"); }
+
             if self.glTexSubImage3D == ptr::null_mut() {
                 _gl_impl_panic("glTexSubImage3D");
                 return;
@@ -2112,6 +2307,9 @@ macro_rules! impl_gl_context {
             ty: GLenum,
             offset: usize,
         ) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glTexSubImage3D"); }
+
             if self.glTexSubImage3D == ptr::null_mut() {
                 _gl_impl_panic("glTexSubImage3D");
                 return;
@@ -2143,6 +2341,9 @@ macro_rules! impl_gl_context {
             width: GLsizei,
             height: GLsizei,
         ) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glTexStorage2D"); }
+
             if self.glTexStorage2D == ptr::null_mut() {
                 _gl_impl_panic("glTexStorage2D");
                 return;
@@ -2163,6 +2364,9 @@ macro_rules! impl_gl_context {
             height: GLsizei,
             depth: GLsizei,
         ) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glTexStorage3D"); }
+
             if self.glTexStorage3D == ptr::null_mut() {
                 _gl_impl_panic("glTexStorage3D");
                 return;
@@ -2182,6 +2386,9 @@ macro_rules! impl_gl_context {
             ty: GLenum,
             output: &mut [u8],
         ) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetTexImage"); }
+
             if self.glGetTexImage == ptr::null_mut() {
                 _gl_impl_panic("glGetTexImage");
                 return;
@@ -2211,6 +2418,9 @@ macro_rules! impl_gl_context {
             src_height: GLsizei,
             src_depth: GLsizei,
         ) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glCopyImageSubData"); }
+
             if self.glCopyImageSubData == ptr::null_mut() {
                 _gl_impl_panic("glCopyImageSubData");
                 return;
@@ -2224,6 +2434,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn invalidate_framebuffer(&self, target: GLenum, attachments: &[GLenum]) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glInvalidateFramebuffer"); }
 
             if self.glInvalidateFramebuffer == ptr::null_mut() {
                 _gl_impl_panic("glInvalidateFramebuffer");
@@ -2250,6 +2463,9 @@ macro_rules! impl_gl_context {
             height: GLsizei,
         ) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glInvalidateSubFramebuffer"); }
+
             if self.glInvalidateSubFramebuffer == ptr::null_mut() {
                 _gl_impl_panic("glInvalidateSubFramebuffer");
                 return;
@@ -2270,6 +2486,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? unsafe fn get_integer_v(&self, name: GLenum, result: &mut [GLint]) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetIntegerv"); }
+
             if self.glGetIntegerv == ptr::null_mut() {
                 _gl_impl_panic("glGetIntegerv");
                 return;
@@ -2280,6 +2499,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? unsafe fn get_integer_64v(&self, name: GLenum, result: &mut [GLint64]) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetInteger64v"); }
+
             if self.glGetInteger64v == ptr::null_mut() {
                 _gl_impl_panic("glGetInteger64v");
                 return;
@@ -2289,6 +2511,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? unsafe fn get_integer_iv(&self, name: GLenum, index: GLuint, result: &mut [GLint]) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetIntegeri_v"); }
+
             if self.glGetIntegeri_v == ptr::null_mut() {
                 _gl_impl_panic("glGetIntegeri_v");
                 return;
@@ -2299,6 +2524,9 @@ macro_rules! impl_gl_context {
 
         #[inline]
         $( $opt )? unsafe fn get_integer_64iv(&self, name: GLenum, index: GLuint, result: &mut [GLint64]) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetInteger64i_v"); }
+
             if self.glGetInteger64i_v == ptr::null_mut() {
                 _gl_impl_panic("glGetInteger64i_v");
                 return;
@@ -2309,6 +2537,9 @@ macro_rules! impl_gl_context {
 
         #[inline]
         $( $opt )? unsafe fn get_boolean_v(&self, name: GLenum, result: &mut [GLboolean]) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetBooleanv"); }
+
             if self.glGetBooleanv == ptr::null_mut() {
                 _gl_impl_panic("glGetBooleanv");
                 return;
@@ -2319,6 +2550,9 @@ macro_rules! impl_gl_context {
 
         #[inline]
         $( $opt )? unsafe fn get_float_v(&self, name: GLenum, result: &mut [GLfloat]) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetFloatv"); }
+
             if self.glGetFloatv == ptr::null_mut() {
                 _gl_impl_panic("glGetFloatv");
                 return;
@@ -2333,6 +2567,9 @@ macro_rules! impl_gl_context {
             attachment: GLenum,
             pname: GLenum,
         ) -> GLint {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetFramebufferAttachmentParameteriv"); }
+
             if self.glGetFramebufferAttachmentParameteriv == ptr::null_mut() {
                 _gl_impl_panic("glGetFramebufferAttachmentParameteriv");
                 return 0;
@@ -2351,6 +2588,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn get_renderbuffer_parameter_iv(&self, target: GLenum, pname: GLenum) -> GLint {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetRenderbufferParameteriv"); }
+
             if self.glGetRenderbufferParameteriv == ptr::null_mut() {
                 _gl_impl_panic("glGetRenderbufferParameteriv");
                 return 0;
@@ -2365,6 +2605,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn get_tex_parameter_iv(&self, target: GLenum, pname: GLenum) -> GLint {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetTexParameteriv"); }
 
             if self.glGetTexParameteriv == ptr::null_mut() {
                 _gl_impl_panic("glGetTexParameteriv");
@@ -2381,6 +2624,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn get_tex_parameter_fv(&self, target: GLenum, pname: GLenum) -> GLfloat {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetTexParameterfv"); }
+
             if self.glGetTexParameterfv == ptr::null_mut() {
                 _gl_impl_panic("glGetTexParameterfv");
                 return 0.0;
@@ -2396,6 +2642,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn tex_parameter_i(&self, target: GLenum, pname: GLenum, param: GLint) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glTexParameteri"); }
+
             if self.glTexParameteri == ptr::null_mut() {
                 _gl_impl_panic("glTexParameteri");
                 return;
@@ -2408,6 +2657,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn tex_parameter_f(&self, target: GLenum, pname: GLenum, param: GLfloat) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glTexParameterf"); }
 
             if self.glTexParameterf == ptr::null_mut() {
                 _gl_impl_panic("glTexParameterf");
@@ -2429,6 +2681,9 @@ macro_rules! impl_gl_context {
             level: GLint,
         ) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glFramebufferTexture2D"); }
+
             if self.glFramebufferTexture2D == ptr::null_mut() {
                 _gl_impl_panic("glFramebufferTexture2D");
                 return;
@@ -2448,6 +2703,9 @@ macro_rules! impl_gl_context {
             level: GLint,
             layer: GLint,
         ) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glFramebufferTextureLayer"); }
+
             if self.glFramebufferTextureLayer == ptr::null_mut() {
                 _gl_impl_panic("glFramebufferTextureLayer");
                 return;
@@ -2472,6 +2730,9 @@ macro_rules! impl_gl_context {
             mask: GLbitfield,
             filter: GLenum,
         ) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glBlitFramebuffer"); }
+
             if self.glBlitFramebuffer == ptr::null_mut() {
                 _gl_impl_panic("glBlitFramebuffer");
                 return;
@@ -2486,6 +2747,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn vertex_attrib_4f(&self, index: GLuint, x: GLfloat, y: GLfloat, z: GLfloat, w: GLfloat) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glVertexAttrib4f"); }
+
             if self.glVertexAttrib4f == ptr::null_mut() {
                 _gl_impl_panic("glVertexAttrib4f");
                 return;
@@ -2505,6 +2769,9 @@ macro_rules! impl_gl_context {
             stride: GLsizei,
             offset: GLuint,
         ) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glVertexAttribPointer"); }
+
             if self.glVertexAttribPointer == ptr::null_mut() {
                 _gl_impl_panic("glVertexAttribPointer");
                 return;
@@ -2532,6 +2799,9 @@ macro_rules! impl_gl_context {
             stride: GLsizei,
             offset: GLuint,
         ) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glVertexAttribPointer"); }
+
             if self.glVertexAttribPointer == ptr::null_mut() {
                 _gl_impl_panic("glVertexAttribPointer");
                 return;
@@ -2558,6 +2828,9 @@ macro_rules! impl_gl_context {
             stride: GLsizei,
             offset: GLuint,
         ) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glVertexAttribIPointer"); }
+
             if self.glVertexAttribIPointer == ptr::null_mut() {
                 _gl_impl_panic("glVertexAttribIPointer");
                 return;
@@ -2570,6 +2843,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn vertex_attrib_divisor(&self, index: GLuint, divisor: GLuint) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glVertexAttribDivisor"); }
 
             if self.glVertexAttribDivisor == ptr::null_mut() {
                 _gl_impl_panic("glVertexAttribDivisor");
@@ -2584,6 +2860,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn viewport(&self, x: GLint, y: GLint, width: GLsizei, height: GLsizei) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glViewport"); }
+
             if self.glViewport == ptr::null_mut() {
                 _gl_impl_panic("glViewport");
                 return;
@@ -2596,6 +2875,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn scissor(&self, x: GLint, y: GLint, width: GLsizei, height: GLsizei) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glScissor"); }
 
             if self.glScissor == ptr::null_mut() {
                 _gl_impl_panic("glScissor");
@@ -2610,6 +2892,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn line_width(&self, width: GLfloat) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glLineWidth"); }
+
             if self.glLineWidth == ptr::null_mut() {
                 _gl_impl_panic("glLineWidth");
                 return;
@@ -2622,6 +2907,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn use_program(&self, program: GLuint) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glUseProgram"); }
 
             if self.glUseProgram == ptr::null_mut() {
                 _gl_impl_panic("glUseProgram");
@@ -2636,6 +2924,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn validate_program(&self, program: GLuint) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glValidateProgram"); }
+
             if self.glValidateProgram == ptr::null_mut() {
                 _gl_impl_panic("glValidateProgram");
                 return;
@@ -2648,6 +2939,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn draw_arrays(&self, mode: GLenum, first: GLint, count: GLsizei) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glDrawArrays"); }
 
             if self.glDrawArrays == ptr::null_mut() {
                 _gl_impl_panic("glDrawArrays");
@@ -2668,6 +2962,9 @@ macro_rules! impl_gl_context {
             primcount: GLsizei,
         ) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glDrawArraysInstanced"); }
+
             if self.glDrawArraysInstanced == ptr::null_mut() {
                 _gl_impl_panic("glDrawArraysInstanced");
                 return;
@@ -2686,6 +2983,9 @@ macro_rules! impl_gl_context {
             element_type: GLenum,
             indices_offset: GLuint,
         ) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glDrawElements"); }
+
             if self.glDrawElements == ptr::null_mut() {
                 _gl_impl_panic("glDrawElements");
                 return;
@@ -2710,6 +3010,9 @@ macro_rules! impl_gl_context {
             indices_offset: GLuint,
             primcount: GLsizei,
         ) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glDrawElementsInstanced"); }
+
             if self.glDrawElementsInstanced == ptr::null_mut() {
                 _gl_impl_panic("glDrawElementsInstanced");
                 return;
@@ -2729,6 +3032,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn blend_color(&self, r: f32, g: f32, b: f32, a: f32) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glBlendColor"); }
+
             if self.glBlendColor == ptr::null_mut() {
                 _gl_impl_panic("glBlendColor");
                 return;
@@ -2741,6 +3047,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn blend_func(&self, sfactor: GLenum, dfactor: GLenum) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glBlendFunc"); }
 
             if self.glBlendFunc == ptr::null_mut() {
                 _gl_impl_panic("glBlendFunc");
@@ -2760,6 +3069,9 @@ macro_rules! impl_gl_context {
             src_alpha: GLenum,
             dest_alpha: GLenum,
         ) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glBlendFuncSeparate"); }
+
             if self.glBlendFuncSeparate == ptr::null_mut() {
                 _gl_impl_panic("glBlendFuncSeparate");
                 return;
@@ -2772,6 +3084,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn blend_equation(&self, mode: GLenum) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glBlendEquation"); }
 
             if self.glBlendEquation == ptr::null_mut() {
                 _gl_impl_panic("glBlendEquation");
@@ -2786,6 +3101,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn blend_equation_separate(&self, mode_rgb: GLenum, mode_alpha: GLenum) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glBlendEquationSeparate"); }
+
             if self.glBlendEquationSeparate == ptr::null_mut() {
                 _gl_impl_panic("glBlendEquationSeparate");
                 return;
@@ -2798,6 +3116,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn color_mask(&self, r: bool, g: bool, b: bool, a: bool) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glColorMask"); }
 
             if self.glColorMask == ptr::null_mut() {
                 _gl_impl_panic("glColorMask");
@@ -2817,6 +3138,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn cull_face(&self, mode: GLenum) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glCullFace"); }
+
             if self.glCullFace == ptr::null_mut() {
                 _gl_impl_panic("glCullFace");
                 return;
@@ -2829,6 +3153,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn front_face(&self, mode: GLenum) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glFrontFace"); }
 
             if self.glFrontFace == ptr::null_mut() {
                 _gl_impl_panic("glFrontFace");
@@ -2843,6 +3170,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn enable(&self, cap: GLenum) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glEnable"); }
+
             if self.glEnable == ptr::null_mut() {
                 _gl_impl_panic("glEnable");
                 return;
@@ -2855,6 +3185,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn disable(&self, cap: GLenum) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glDisable"); }
 
             if self.glDisable == ptr::null_mut() {
                 _gl_impl_panic("glDisable");
@@ -2869,6 +3202,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn hint(&self, param_name: GLenum, param_val: GLenum) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glHint"); }
+
             if self.glHint == ptr::null_mut() {
                 _gl_impl_panic("glHint");
                 return;
@@ -2881,6 +3217,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn is_enabled(&self, cap: GLenum) -> GLboolean {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glIsEnabled"); }
 
             if self.glIsEnabled == ptr::null_mut() {
                 _gl_impl_panic("glIsEnabled");
@@ -2895,6 +3234,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn is_shader(&self, shader: GLuint) -> GLboolean {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glIsShader"); }
+
             if self.glIsShader == ptr::null_mut() {
                 _gl_impl_panic("glIsShader");
                 return 0;
@@ -2907,6 +3249,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn is_texture(&self, texture: GLenum) -> GLboolean {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glIsTexture"); }
 
             if self.glIsTexture == ptr::null_mut() {
                 _gl_impl_panic("glIsTexture");
@@ -2921,6 +3266,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn is_framebuffer(&self, framebuffer: GLenum) -> GLboolean {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glIsFramebuffer"); }
+
             if self.glIsFramebuffer == ptr::null_mut() {
                 _gl_impl_panic("glIsFramebuffer");
                 return 0;
@@ -2933,6 +3281,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn is_renderbuffer(&self, renderbuffer: GLenum) -> GLboolean {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glIsRenderbuffer"); }
 
             if self.glIsRenderbuffer == ptr::null_mut() {
                 _gl_impl_panic("glIsRenderbuffer");
@@ -2947,6 +3298,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn check_frame_buffer_status(&self, target: GLenum) -> GLenum {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glCheckFramebufferStatus"); }
+
             if self.glCheckFramebufferStatus == ptr::null_mut() {
                 _gl_impl_panic("glCheckFramebufferStatus");
                 return 0;
@@ -2959,6 +3313,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn enable_vertex_attrib_array(&self, index: GLuint) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glEnableVertexAttribArray"); }
 
             if self.glEnableVertexAttribArray == ptr::null_mut() {
                 _gl_impl_panic("glEnableVertexAttribArray");
@@ -2973,6 +3330,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn disable_vertex_attrib_array(&self, index: GLuint) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glDisableVertexAttribArray"); }
+
             if self.glDisableVertexAttribArray == ptr::null_mut() {
                 _gl_impl_panic("glDisableVertexAttribArray");
                 return;
@@ -2985,6 +3345,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn uniform_1f(&self, location: GLint, v0: GLfloat) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glUniform1f"); }
 
             if self.glUniform1f == ptr::null_mut() {
                 _gl_impl_panic("glUniform1f");
@@ -2999,6 +3362,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn uniform_1fv(&self, location: GLint, values: &[f32]) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glUniform1fv"); }
+
             if self.glUniform1fv == ptr::null_mut() {
                 _gl_impl_panic("glUniform1fv");
                 return;
@@ -3011,6 +3377,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn uniform_1i(&self, location: GLint, v0: GLint) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glUniform1i"); }
 
             if self.glUniform1i == ptr::null_mut() {
                 _gl_impl_panic("glUniform1i");
@@ -3025,6 +3394,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn uniform_1iv(&self, location: GLint, values: &[i32]) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glUniform1iv"); }
+
             if self.glUniform1iv == ptr::null_mut() {
                 _gl_impl_panic("glUniform1iv");
                 return;
@@ -3037,6 +3409,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn uniform_1ui(&self, location: GLint, v0: GLuint) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glUniform1ui"); }
 
             if self.glUniform1ui == ptr::null_mut() {
                 _gl_impl_panic("glUniform1ui");
@@ -3051,6 +3426,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn uniform_2f(&self, location: GLint, v0: GLfloat, v1: GLfloat) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glUniform2f"); }
+
             if self.glUniform2f == ptr::null_mut() {
                 _gl_impl_panic("glUniform2f");
                 return;
@@ -3063,6 +3441,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn uniform_2fv(&self, location: GLint, values: &[f32]) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glUniform2fv"); }
 
             if self.glUniform2fv == ptr::null_mut() {
                 _gl_impl_panic("glUniform2fv");
@@ -3077,6 +3458,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn uniform_2i(&self, location: GLint, v0: GLint, v1: GLint) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glUniform2i"); }
+
             if self.glUniform2i == ptr::null_mut() {
                 _gl_impl_panic("glUniform2i");
                 return;
@@ -3089,6 +3473,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn uniform_2iv(&self, location: GLint, values: &[i32]) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glUniform2iv"); }
 
             if self.glUniform2iv == ptr::null_mut() {
                 _gl_impl_panic("glUniform2iv");
@@ -3103,6 +3490,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn uniform_2ui(&self, location: GLint, v0: GLuint, v1: GLuint) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glUniform2ui"); }
+
             if self.glUniform2ui == ptr::null_mut() {
                 _gl_impl_panic("glUniform2ui");
                 return;
@@ -3115,6 +3505,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn uniform_3f(&self, location: GLint, v0: GLfloat, v1: GLfloat, v2: GLfloat) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glUniform3f"); }
 
             if self.glUniform3f == ptr::null_mut() {
                 _gl_impl_panic("glUniform3f");
@@ -3129,6 +3522,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn uniform_3fv(&self, location: GLint, values: &[f32]) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glUniform3fv"); }
+
             if self.glUniform3fv == ptr::null_mut() {
                 _gl_impl_panic("glUniform3fv");
                 return;
@@ -3141,6 +3537,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn uniform_3i(&self, location: GLint, v0: GLint, v1: GLint, v2: GLint) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glUniform3i"); }
 
             if self.glUniform3i == ptr::null_mut() {
                 _gl_impl_panic("glUniform3i");
@@ -3155,6 +3554,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn uniform_3iv(&self, location: GLint, values: &[i32]) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glUniform3iv"); }
+
             if self.glUniform3iv == ptr::null_mut() {
                 _gl_impl_panic("glUniform3iv");
                 return;
@@ -3167,6 +3569,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn uniform_3ui(&self, location: GLint, v0: GLuint, v1: GLuint, v2: GLuint) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glUniform3ui"); }
 
             if self.glUniform3ui == ptr::null_mut() {
                 _gl_impl_panic("glUniform3ui");
@@ -3181,6 +3586,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn uniform_4f(&self, location: GLint, x: GLfloat, y: GLfloat, z: GLfloat, w: GLfloat) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glUniform4f"); }
+
             if self.glUniform4f == ptr::null_mut() {
                 _gl_impl_panic("glUniform4f");
                 return;
@@ -3193,6 +3601,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn uniform_4i(&self, location: GLint, x: GLint, y: GLint, z: GLint, w: GLint) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glUniform4i"); }
 
             if self.glUniform4i == ptr::null_mut() {
                 _gl_impl_panic("glUniform4i");
@@ -3207,6 +3618,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn uniform_4iv(&self, location: GLint, values: &[i32]) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glUniform4iv"); }
+
             if self.glUniform4iv == ptr::null_mut() {
                 _gl_impl_panic("glUniform4iv");
                 return;
@@ -3219,6 +3633,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn uniform_4ui(&self, location: GLint, x: GLuint, y: GLuint, z: GLuint, w: GLuint) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glUniform4ui"); }
 
             if self.glUniform4ui == ptr::null_mut() {
                 _gl_impl_panic("glUniform4ui");
@@ -3233,6 +3650,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn uniform_4fv(&self, location: GLint, values: &[f32]) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glUniform4fv"); }
+
             if self.glUniform4fv == ptr::null_mut() {
                 _gl_impl_panic("glUniform4fv");
                 return;
@@ -3245,6 +3665,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn uniform_matrix_2fv(&self, location: GLint, transpose: bool, value: &[f32]) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glUniformMatrix2fv"); }
 
             if self.glUniformMatrix2fv == ptr::null_mut() {
                 _gl_impl_panic("glUniformMatrix2fv");
@@ -3264,6 +3687,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn uniform_matrix_3fv(&self, location: GLint, transpose: bool, value: &[f32]) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glUniformMatrix3fv"); }
+
             if self.glUniformMatrix3fv == ptr::null_mut() {
                 _gl_impl_panic("glUniformMatrix3fv");
                 return;
@@ -3281,6 +3707,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn uniform_matrix_4fv(&self, location: GLint, transpose: bool, value: &[f32]) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glUniformMatrix4fv"); }
 
             if self.glUniformMatrix4fv == ptr::null_mut() {
                 _gl_impl_panic("glUniformMatrix4fv");
@@ -3300,6 +3729,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn depth_mask(&self, flag: bool) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glDepthMask"); }
+
             if self.glDepthMask == ptr::null_mut() {
                 _gl_impl_panic("glDepthMask");
                 return;
@@ -3313,6 +3745,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn depth_range(&self, near: f64, far: f64) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glDepthRange"); }
+
             if self.glDepthRange == ptr::null_mut() {
                 _gl_impl_panic("glDepthRange");
                 return;
@@ -3325,6 +3760,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn get_active_attrib(&self, program: GLuint, index: GLuint) -> (i32, u32, String) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetActiveAttrib"); }
 
             if self.glGetActiveAttrib == ptr::null_mut() {
                 _gl_impl_panic("glGetActiveAttrib");
@@ -3356,6 +3794,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn get_active_uniform(&self, program: GLuint, index: GLuint) -> (i32, u32, String) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetActiveUniform"); }
 
             if self.glGetActiveUniform == ptr::null_mut() {
                 _gl_impl_panic("glGetActiveUniform");
@@ -3396,6 +3837,9 @@ macro_rules! impl_gl_context {
             pname: GLenum,
         ) -> Vec<GLint> {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetActiveUniformsiv"); }
+
             if self.glGetActiveUniformsiv == ptr::null_mut() {
                 _gl_impl_panic("glGetActiveUniformsiv");
                 return Vec::new();
@@ -3418,6 +3862,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn get_active_uniform_block_i(&self, program: GLuint, index: GLuint, pname: GLenum) -> GLint {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetActiveUniformBlockiv"); }
+
             if self.glGetActiveUniformBlockiv == ptr::null_mut() {
                 _gl_impl_panic("glGetActiveUniformBlockiv");
                 return 0;
@@ -3438,6 +3885,9 @@ macro_rules! impl_gl_context {
             pname: GLenum,
         ) -> Vec<GLint> {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetActiveUniformBlockiv"); }
+
             if self.glGetActiveUniformBlockiv == ptr::null_mut() {
                 _gl_impl_panic("glGetActiveUniformBlockiv");
                 return Vec::new();
@@ -3454,6 +3904,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn get_active_uniform_block_name(&self, program: GLuint, index: GLuint) -> String {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetActiveUniformBlockName"); }
 
             if self.glGetActiveUniformBlockName == ptr::null_mut() {
                 _gl_impl_panic("glGetActiveUniformBlockName");
@@ -3480,6 +3933,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn get_attrib_location(&self, program: GLuint, name: &str) -> c_int {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetAttribLocation"); }
+
             if self.glGetAttribLocation == ptr::null_mut() {
                 _gl_impl_panic("glGetAttribLocation");
                 return 0;
@@ -3493,6 +3949,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn get_frag_data_location(&self, program: GLuint, name: &str) -> c_int {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetFragDataLocation"); }
 
             if self.glGetFragDataLocation == ptr::null_mut() {
                 _gl_impl_panic("glGetFragDataLocation");
@@ -3508,6 +3967,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn get_uniform_location(&self, program: GLuint, name: &str) -> c_int {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetUniformLocation"); }
+
             if self.glGetUniformLocation == ptr::null_mut() {
                 _gl_impl_panic("glGetUniformLocation");
                 return 0;
@@ -3521,6 +3983,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn get_program_info_log(&self, program: GLuint) -> String {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetProgramInfoLog"); }
 
             if self.glGetProgramInfoLog == ptr::null_mut() {
                 _gl_impl_panic("glGetProgramInfoLog");
@@ -3555,6 +4020,9 @@ macro_rules! impl_gl_context {
 
         #[inline]
         $( $opt )? unsafe fn get_program_iv(&self, program: GLuint, pname: GLenum, result: &mut [GLint]) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetProgramiv"); }
+
             if self.glGetProgramiv == ptr::null_mut() {
                 _gl_impl_panic("glGetProgramiv");
                 return;
@@ -3566,6 +4034,9 @@ macro_rules! impl_gl_context {
         $( $opt )? fn get_program_binary(&self, program: GLuint) -> (Vec<u8>, GLenum) {
 
             const NONE: GLenum = 0;
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetProgramBinary"); }
 
             if self.glGetProgramBinary == ptr::null_mut() {
                 _gl_impl_panic("glGetProgramBinary");
@@ -3601,6 +4072,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn program_binary(&self, program: GLuint, format: GLenum, binary: &[u8]) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glProgramBinary"); }
+
             if self.glProgramBinary == ptr::null_mut() {
                 _gl_impl_panic("glProgramBinary");
                 return;
@@ -3618,6 +4092,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn program_parameter_i(&self, program: GLuint, pname: GLenum, value: GLint) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glProgramParameteri"); }
+
             if self.glProgramParameteri == ptr::null_mut() {
                 _gl_impl_panic("glProgramParameteri");
                 return;
@@ -3630,6 +4107,9 @@ macro_rules! impl_gl_context {
 
         #[inline]
         $( $opt )? unsafe fn get_vertex_attrib_iv(&self, index: GLuint, pname: GLenum, result: &mut [GLint]) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetVertexAttribiv"); }
+
             if self.glGetVertexAttribiv == ptr::null_mut() {
                 _gl_impl_panic("glGetVertexAttribiv");
                 return;
@@ -3640,6 +4120,9 @@ macro_rules! impl_gl_context {
 
         #[inline]
         $( $opt )? unsafe fn get_vertex_attrib_fv(&self, index: GLuint, pname: GLenum, result: &mut [GLfloat]) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetVertexAttribfv"); }
+
             if self.glGetVertexAttribfv == ptr::null_mut() {
                 _gl_impl_panic("glGetVertexAttribfv");
                 return;
@@ -3649,6 +4132,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn get_vertex_attrib_pointer_v(&self, index: GLuint, pname: GLenum) -> GLsizeiptr {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetVertexAttribPointerv"); }
 
             if self.glGetVertexAttribPointerv == ptr::null_mut() {
                 _gl_impl_panic("glGetVertexAttribPointerv");
@@ -3665,6 +4151,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn get_buffer_parameter_iv(&self, target: GLuint, pname: GLenum) -> GLint {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetBufferParameteriv"); }
+
             if self.glGetBufferParameteriv == ptr::null_mut() {
                 _gl_impl_panic("glGetBufferParameteriv");
                 return 0;
@@ -3679,6 +4168,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn get_shader_info_log(&self, shader: GLuint) -> String {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetShaderInfoLog"); }
 
             if self.glGetShaderInfoLog == ptr::null_mut() {
                 _gl_impl_panic("glGetShaderInfoLog");
@@ -3713,6 +4205,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn get_string(&self, which: GLenum) -> String {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetString"); }
+
             if self.glGetString == ptr::null_mut() {
                 _gl_impl_panic("glGetString");
                 return String::new();
@@ -3730,6 +4225,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn get_string_i(&self, which: GLenum, index: GLuint) -> String {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetStringi"); }
 
             if self.glGetStringi == ptr::null_mut() {
                 _gl_impl_panic("glGetStringi");
@@ -3749,6 +4247,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? unsafe fn get_shader_iv(&self, shader: GLuint, pname: GLenum, result: &mut [GLint]) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetShaderiv"); }
+
             if self.glGetShaderiv == ptr::null_mut() {
                 _gl_impl_panic("glGetShaderiv");
                 return;
@@ -3763,6 +4264,9 @@ macro_rules! impl_gl_context {
             _shader_type: GLuint,
             precision_type: GLuint,
         ) -> (GLint, GLint, GLint) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetShaderPrecisionFormat"); }
 
             // if self.glGetShaderPrecisionFormat == ptr::null_mut() {
             //     _gl_impl_panic("glGetShaderPrecisionFormat");
@@ -3790,6 +4294,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn compile_shader(&self, shader: GLuint) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glCompileShader"); }
+
             if self.glCompileShader == ptr::null_mut() {
                 _gl_impl_panic("glCompileShader");
                 return;
@@ -3802,6 +4309,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn create_program(&self) -> GLuint {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glCreateProgram"); }
 
             if self.glCreateProgram == ptr::null_mut() {
                 _gl_impl_panic("glCreateProgram");
@@ -3816,6 +4326,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn delete_program(&self, program: GLuint) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glDeleteProgram"); }
+
             if self.glDeleteProgram == ptr::null_mut() {
                 _gl_impl_panic("glDeleteProgram");
                 return;
@@ -3828,6 +4341,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn create_shader(&self, shader_type: GLenum) -> GLuint {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glCreateShader"); }
 
             if self.glCreateShader == ptr::null_mut() {
                 _gl_impl_panic("glCreateShader");
@@ -3842,6 +4358,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn delete_shader(&self, shader: GLuint) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glDeleteShader"); }
+
             if self.glDeleteShader == ptr::null_mut() {
                 _gl_impl_panic("glDeleteShader");
                 return;
@@ -3854,6 +4373,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn detach_shader(&self, program: GLuint, shader: GLuint) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glDetachShader"); }
 
             if self.glDetachShader == ptr::null_mut() {
                 _gl_impl_panic("glDetachShader");
@@ -3868,6 +4390,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn link_program(&self, program: GLuint) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glLinkProgram"); }
+
             if self.glLinkProgram == ptr::null_mut() {
                 _gl_impl_panic("glLinkProgram");
                 return;
@@ -3880,6 +4405,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn clear_color(&self, r: f32, g: f32, b: f32, a: f32) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glClearColor"); }
 
             if self.glClearColor == ptr::null_mut() {
                 _gl_impl_panic("glClearColor");
@@ -3894,6 +4422,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn clear(&self, buffer_mask: GLbitfield) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glClear"); }
+
             if self.glClear == ptr::null_mut() {
                 _gl_impl_panic("glClear");
                 return;
@@ -3906,6 +4437,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn clear_depth(&self, depth: f64) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glClearDepth"); }
 
             if self.glClearDepth == ptr::null_mut() {
                 _gl_impl_panic("glClearDepth");
@@ -3920,6 +4454,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn clear_stencil(&self, s: GLint) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glClearStencil"); }
+
             if self.glClearStencil == ptr::null_mut() {
                 _gl_impl_panic("glClearStencil");
                 return;
@@ -3932,6 +4469,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn flush(&self) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glFlush"); }
 
             if self.glFlush == ptr::null_mut() {
                 _gl_impl_panic("glFlush");
@@ -3946,6 +4486,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn finish(&self) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glFinish"); }
+
             if self.glFinish == ptr::null_mut() {
                 _gl_impl_panic("glFinish");
                 return;
@@ -3958,6 +4501,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn get_error(&self) -> GLenum {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetError"); }
 
             if self.glGetError == ptr::null_mut() {
                 _gl_impl_panic("glGetError");
@@ -3972,6 +4518,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn stencil_mask(&self, mask: GLuint) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glStencilMask"); }
+
             if self.glStencilMask == ptr::null_mut() {
                 _gl_impl_panic("glStencilMask");
                 return;
@@ -3984,6 +4533,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn stencil_mask_separate(&self, face: GLenum, mask: GLuint) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glStencilMaskSeparate"); }
 
             if self.glStencilMaskSeparate == ptr::null_mut() {
                 _gl_impl_panic("glStencilMaskSeparate");
@@ -3998,6 +4550,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn stencil_func(&self, func: GLenum, ref_: GLint, mask: GLuint) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glStencilFunc"); }
+
             if self.glStencilFunc == ptr::null_mut() {
                 _gl_impl_panic("glStencilFunc");
                 return;
@@ -4010,6 +4565,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn stencil_func_separate(&self, face: GLenum, func: GLenum, ref_: GLint, mask: GLuint) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glStencilFuncSeparate"); }
 
             if self.glStencilFuncSeparate == ptr::null_mut() {
                 _gl_impl_panic("glStencilFuncSeparate");
@@ -4024,6 +4582,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn stencil_op(&self, sfail: GLenum, dpfail: GLenum, dppass: GLenum) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glStencilOp"); }
+
             if self.glStencilOp == ptr::null_mut() {
                 _gl_impl_panic("glStencilOp");
                 return;
@@ -4036,6 +4597,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn stencil_op_separate(&self, face: GLenum, sfail: GLenum, dpfail: GLenum, dppass: GLenum) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glStencilOpSeparate"); }
 
             if self.glStencilOpSeparate == ptr::null_mut() {
                 _gl_impl_panic("glStencilOpSeparate");
@@ -4051,6 +4615,8 @@ macro_rules! impl_gl_context {
         #[allow(unused_variables)]
         $( $opt )? fn egl_image_target_texture2d_oes(&self, target: GLenum, image: GLeglImageOES) {
 
+            #[cfg(feature = "debug")] { _gl_print_debug("glEglImageTargetTexture2dOes"); }
+
             return; // not supported
 
             // if self.glEglImageTargetTexture2dOes == ptr::null_mut() {
@@ -4062,6 +4628,8 @@ macro_rules! impl_gl_context {
         #[allow(unused_variables)]
         $( $opt )? fn egl_image_target_renderbuffer_storage_oes(&self, target: GLenum, image: GLeglImageOES) {
 
+            #[cfg(feature = "debug")] { _gl_print_debug("glEglImageTargetRenderbufferStorageOes"); }
+
             return; // not supported
 
             // if self.glEglImageTargetRenderbufferStorageOes == ptr::null_mut() {
@@ -4071,6 +4639,8 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn generate_mipmap(&self, target: GLenum) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGenerateMipmap"); }
 
             if self.glGenerateMipmap == ptr::null_mut() {
                 _gl_impl_panic("glGenerateMipmap");
@@ -4085,6 +4655,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn insert_event_marker_ext(&self, message: &str) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glInsertEventMarkerEXT"); }
+
             if self.glInsertEventMarkerEXT == ptr::null_mut() {
                 _gl_impl_panic("glInsertEventMarkerEXT");
                 return;
@@ -4097,6 +4670,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn push_group_marker_ext(&self, message: &str) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glPushGroupMarkerEXT"); }
 
             if self.glPushGroupMarkerEXT == ptr::null_mut() {
                 _gl_impl_panic("glPushGroupMarkerEXT");
@@ -4111,6 +4687,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn pop_group_marker_ext(&self) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glPopGroupMarkerEXT"); }
+
             if self.glPopGroupMarkerEXT == ptr::null_mut() {
                 _gl_impl_panic("glPopGroupMarkerEXT");
                 return;
@@ -4123,6 +4702,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn debug_message_insert_khr(&self, source: GLenum, type_: GLenum, id: GLuint, severity: GLenum, message: &str) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glDebugMessageInsertKHR"); }
 
             if self.glDebugMessageInsertKHR == ptr::null_mut() {
                 _gl_impl_panic("glDebugMessageInsertKHR");
@@ -4138,6 +4720,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn push_debug_group_khr(&self, source: GLenum, id: GLuint, message: &str) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glPushDebugGroupKHR"); }
+
             if self.glPushDebugGroupKHR == ptr::null_mut() {
                 _gl_impl_panic("glPushDebugGroupKHR");
                 return;
@@ -4150,6 +4735,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn pop_debug_group_khr(&self) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glPopDebugGroupKHR"); }
 
             if self.glPopDebugGroupKHR == ptr::null_mut() {
                 _gl_impl_panic("glPopDebugGroupKHR");
@@ -4164,6 +4752,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn fence_sync(&self, condition: GLenum, flags: GLbitfield) -> GLsync {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glFenceSync"); }
+
             if self.glFenceSync == ptr::null_mut() {
                 _gl_impl_panic("glFenceSync");
                 return ptr::null_mut();
@@ -4176,6 +4767,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn client_wait_sync(&self, sync: GLsync, flags: GLbitfield, timeout: GLuint64) -> GLenum {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glClientWaitSync"); }
 
             if self.glClientWaitSync == ptr::null_mut() {
                 _gl_impl_panic("glClientWaitSync");
@@ -4190,6 +4784,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn wait_sync(&self, sync: GLsync, flags: GLbitfield, timeout: GLuint64) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glWaitSync"); }
+
             if self.glWaitSync == ptr::null_mut() {
                 _gl_impl_panic("glWaitSync");
                 return;
@@ -4202,6 +4799,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn texture_range_apple(&self, target: GLenum, data: &[u8]) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glTextureRangeAPPLE"); }
 
             if self.glTextureRangeAPPLE == ptr::null_mut() {
                 _gl_impl_panic("glTextureRangeAPPLE");
@@ -4220,6 +4820,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn delete_sync(&self, sync: GLsync) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glDeleteSync"); }
+
             if self.glDeleteSync == ptr::null_mut() {
                 _gl_impl_panic("glDeleteSync");
                 return;
@@ -4235,6 +4838,9 @@ macro_rules! impl_gl_context {
 
             let mut result = vec![0 as GLuint; n as usize];
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGenFencesAPPLE"); }
+
             if self.glGenFencesAPPLE == ptr::null_mut() {
                 _gl_impl_panic("glGenFencesAPPLE");
                 return result;
@@ -4249,6 +4855,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn delete_fences_apple(&self, fences: &[GLuint]) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glDeleteFencesAPPLE"); }
+
             if self.glDeleteFencesAPPLE == ptr::null_mut() {
                 _gl_impl_panic("glDeleteFencesAPPLE");
                 return;
@@ -4261,6 +4870,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn set_fence_apple(&self, fence: GLuint) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glSetFenceAPPLE"); }
 
             if self.glSetFenceAPPLE == ptr::null_mut() {
                 _gl_impl_panic("glSetFenceAPPLE");
@@ -4275,6 +4887,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn finish_fence_apple(&self, fence: GLuint) {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glFinishFenceAPPLE"); }
+
             if self.glFinishFenceAPPLE == ptr::null_mut() {
                 _gl_impl_panic("glFinishFenceAPPLE");
                 return;
@@ -4287,6 +4902,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn test_fence_apple(&self, fence: GLuint) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glTestFenceAPPLE"); }
 
             if self.glTestFenceAPPLE == ptr::null_mut() {
                 _gl_impl_panic("glTestFenceAPPLE");
@@ -4301,6 +4919,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn test_object_apple(&self, object: GLenum, name: GLuint) -> GLboolean {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glTestObjectAPPLE"); }
+
             if self.glTestObjectAPPLE == ptr::null_mut() {
                 _gl_impl_panic("glTestObjectAPPLE");
                 return 0;
@@ -4313,6 +4934,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn finish_object_apple(&self, object: GLenum, name: GLuint) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glFinishObjectAPPLE"); }
 
             if self.glTestObjectAPPLE == ptr::null_mut() {
                 _gl_impl_panic("glFinishObjectAPPLE");
@@ -4334,6 +4958,9 @@ macro_rules! impl_gl_context {
             index: GLuint,
             name: &str,
         ) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glBindFragDataLocationIndexed"); }
+
             if self.glBindFragDataLocationIndexed == ptr::null_mut() {
                 _gl_impl_panic("glBindFragDataLocationIndexed");
                 return;
@@ -4354,6 +4981,9 @@ macro_rules! impl_gl_context {
 
         $( $opt )? fn get_frag_data_index(&self, program: GLuint, name: &str) -> GLint {
 
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetFragDataIndex"); }
+
             if self.glGetFragDataIndex == ptr::null_mut() {
                 _gl_impl_panic("glGetFragDataIndex");
                 return -1;
@@ -4369,6 +4999,9 @@ macro_rules! impl_gl_context {
 
         // GL_KHR_debug
         $( $opt )? fn get_debug_messages(&self) -> Vec<DebugMessage> {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glGetDebugMessageLog"); }
 
             if self.glGetDebugMessageLog == ptr::null_mut() {
                 _gl_impl_panic("glGetDebugMessageLog");
@@ -4426,12 +5059,18 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn provoking_vertex_angle(&self, _mode: GLenum) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glProvokingVertexAngle"); }
+
             _gl_impl_panic("glProvokingVertexAngle"); // GLES only
             return;
         }
 
         // GL_KHR_blend_equation_advanced
         $( $opt )? fn blend_barrier_khr(&self) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glBlendBarrierKHR"); }
 
             if self.glBlendBarrierKHR == ptr::null_mut() {
                 _gl_impl_panic("glBlendBarrierKHR");
@@ -4451,6 +5090,8 @@ macro_rules! impl_gl_context {
             _internal_format: GLint, _dest_type: GLenum,
             _unpack_flip_y: GLboolean, _unpack_premultiply_alpha: GLboolean, _unpack_unmultiply_alpha: GLboolean)
         {
+            #[cfg(feature = "debug")] { _gl_print_debug("glCopyTextureChromium"); }
+
             _gl_impl_panic("glCopyTextureChromium"); // GLES only
             return;
         }
@@ -4460,6 +5101,8 @@ macro_rules! impl_gl_context {
             _x_offset: GLint, _y_offset: GLint, _x: GLint, _y: GLint, _width: GLsizei, _height: GLsizei,
             _unpack_flip_y: GLboolean, _unpack_premultiply_alpha: GLboolean, _unpack_unmultiply_alpha: GLboolean)
         {
+            #[cfg(feature = "debug")] { _gl_print_debug("glCopySubTextureChromium"); }
+
             _gl_impl_panic("glCopySubTextureChromium"); // GLES only
             return;
         }
@@ -4478,6 +5121,8 @@ macro_rules! impl_gl_context {
             _unpack_premultiply_alpha: GLboolean,
             _unpack_unmultiply_alpha: GLboolean,
         ) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glANGLECopyTexture3D"); }
             _gl_impl_panic("glANGLECopyTexture3D"); // ANGLE only
             return;
         }
@@ -4502,6 +5147,9 @@ macro_rules! impl_gl_context {
             _unpack_premultiply_alpha: GLboolean,
             _unpack_unmultiply_alpha: GLboolean,
         ) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glANGLECopySubTexture3D"); }
+
             _gl_impl_panic("glANGLECopySubTexture3D"); // ANGLE only
             // return;
         }
@@ -4513,6 +5161,9 @@ macro_rules! impl_gl_context {
             data: *const GLvoid,
             flags: GLbitfield,
         ) {
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glBufferStorage"); }
+
             if self.glBufferStorage == ptr::null_mut() {
                 _gl_impl_panic("glBufferStorage");
                 return;
@@ -4525,6 +5176,9 @@ macro_rules! impl_gl_context {
         }
 
         $( $opt )? fn flush_mapped_buffer_range(&self, target: GLenum, offset: GLintptr, length: GLsizeiptr) {
+
+
+            #[cfg(feature = "debug")] { _gl_print_debug("glFlushMappedBufferRange"); }
 
             if self.glFlushMappedBufferRange == ptr::null_mut() {
                 _gl_impl_panic("glFlushMappedBufferRange");
@@ -4550,9 +5204,13 @@ impl GenericGlContext {
     impl_gl_context!(pub);
 }
 
+
 #[cfg(feature = "std")]
 fn _gl_impl_panic(s: &str) { println!("OpenGL function not loaded: {}", s); }
 
 #[cfg(not(feature = "std"))]
 #[inline(always)]
 fn _gl_impl_panic(_s: &str) {  }
+
+#[cfg(feature = "debug")]
+fn _gl_print_debug(s: &str) { println!("Called OpenGL function: {}", s); }
