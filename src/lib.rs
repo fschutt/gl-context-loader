@@ -1072,14 +1072,21 @@ macro_rules! impl_gl_context {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glShaderSource"); }
 
+            let pointers: Vec<*const u8> = strings.iter().map(|string| (*string).as_ptr()).collect();
+            let lengths: Vec<GLint> = strings.iter().map(|string| string.len() as GLint).collect();
+
             if self.glShaderSource == ptr::null_mut() {
                 _gl_impl_panic("glShaderSource");
                 return;
             }
+
             unsafe {
-                let func: extern "system" fn(GLuint, &[&[u8]]) = mem::transmute(self.glShaderSource);
-                (func)(shader, strings)
+                let func: extern "system" fn(GLuint, GLsizei, *const *const GLchar, *const GLint) = mem::transmute(self.glShaderSource);
+                (func)(shader, pointers.len() as GLsizei, pointers.as_ptr() as *const *const GLchar, lengths.as_ptr())
             }
+
+            mem::drop(lengths);
+            mem::drop(pointers);
         }
 
         $( $opt )? fn read_buffer(&self, mode: GLenum) {
