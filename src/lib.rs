@@ -59,6 +59,7 @@ pub mod gl {
     use super::GLenum;
 
     pub const ACCUM: GLenum = 0x0100;
+    pub const MAP_PERSISTENT_BIT: GLenum = 64;
     pub const ACCUM_ALPHA_BITS: GLenum = 0x0D5B;
     pub const ACCUM_BLUE_BITS: GLenum = 0x0D5A;
     pub const ACCUM_BUFFER_BIT: GLenum = 0x00000200;
