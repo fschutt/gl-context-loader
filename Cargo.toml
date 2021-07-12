@@ -13,6 +13,7 @@ repository = "https://github.com/fschutt/gl-context-loader"
 gleam = { version = "0.13.1", default-features = false, optional = true }
 
 [features]
-std = ["gleam"]
+std = []
 default = ["std"]
+gleam_trait = ["gleam", "std"]
 debug = ["std"]

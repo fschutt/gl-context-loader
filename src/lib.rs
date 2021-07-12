@@ -24,7 +24,7 @@ use alloc::string::ToString;
 #[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 
-#[cfg(feature = "std")]
+#[cfg(feature = "gleam_trait")]
 extern crate gleam;
 
 #[allow(non_camel_case_types, dead_code)]
@@ -1517,20 +1517,20 @@ pub type GLchar = c_char; // = c_char
 pub type GLclampd = f64;
 pub type GLubyte = c_uchar;
 
-#[cfg(feature = "std")]
+#[cfg(feature = "gleam_trait")]
 pub type GLeglImageOES = gleam::gl::GLeglImageOES; // *const c_void;
-#[cfg(not(feature = "std"))]
+#[cfg(not(feature = "gleam_trait"))]
 pub type GLeglImageOES = *const c_void;
 
-#[cfg(feature = "std")]
+#[cfg(feature = "gleam_trait")]
 pub type GLsync = gleam::gl::GLsync;
-#[cfg(not(feature = "std"))]
+#[cfg(not(feature = "gleam_trait"))]
 pub type GLsync = *const c_void;
 
-#[cfg(feature = "std")]
+#[cfg(feature = "gleam_trait")]
 pub use gleam::gl::DebugMessage;
 
-#[cfg(not(feature = "std"))]
+#[cfg(not(feature = "gleam_trait"))]
 #[repr(C)]
 pub struct DebugMessage {
     pub message: String,
@@ -1540,10 +1540,10 @@ pub struct DebugMessage {
     pub severity: GLenum,
 }
 
-#[cfg(feature = "std")]
+#[cfg(feature = "gleam_trait")]
 pub use gleam::gl::GlType;
 
-#[cfg(not(feature = "std"))]
+#[cfg(not(feature = "gleam_trait"))]
 #[repr(C)]
 pub enum GlType {
     Gl,
@@ -6599,12 +6599,12 @@ macro_rules! impl_gl_context {
     };
 }
 
-#[cfg(feature = "std")]
+#[cfg(feature = "gleam_trait")]
 impl gleam::gl::Gl for GenericGlContext {
     impl_gl_context!();
 }
 
-#[cfg(not(feature = "std"))]
+#[cfg(not(feature = "gleam_trait"))]
 #[allow(dead_code)]
 impl GenericGlContext {
     impl_gl_context!(pub);
