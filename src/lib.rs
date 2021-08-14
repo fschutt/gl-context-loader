@@ -2370,6 +2370,7 @@ macro_rules! impl_gl_context {
         ) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glBufferData"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glBufferData == ptr::null_mut() {
                 _gl_impl_panic("glBufferData");
@@ -2391,6 +2392,7 @@ macro_rules! impl_gl_context {
         ) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glBufferSubData"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glBufferSubData == ptr::null_mut() {
                 _gl_impl_panic("glBufferSubData");
@@ -2406,6 +2408,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn map_buffer(&self, target: GLenum, access: GLbitfield) -> *mut GLvoid {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glMapBuffer"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glMapBuffer == ptr::null_mut() {
                 _gl_impl_panic("glMapBuffer");
@@ -2427,6 +2430,7 @@ macro_rules! impl_gl_context {
         ) -> *mut GLvoid {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glMapBufferRange"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glMapBufferRange == ptr::null_mut() {
                 _gl_impl_panic("glMapBufferRange");
@@ -2442,6 +2446,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn unmap_buffer(&self, target: GLenum) -> GLboolean {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glUnmapBuffer"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glUnmapBuffer == ptr::null_mut() {
                 _gl_impl_panic("glUnmapBuffer");
@@ -2456,6 +2461,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn tex_buffer(&self, target: GLenum, internal_format: GLenum, buffer: GLuint) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glTexBuffer"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glTexBuffer == ptr::null_mut() {
                 _gl_impl_panic("glTexBuffer");
@@ -2470,6 +2476,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn shader_source(&self, shader: GLuint, strings: &[&[u8]]) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glShaderSource"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             let pointers: Vec<*const u8> = strings.iter().map(|string| (*string).as_ptr()).collect();
             let lengths: Vec<GLint> = strings.iter().map(|string| string.len() as GLint).collect();
@@ -2491,6 +2498,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn read_buffer(&self, mode: GLenum) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glReadBuffer"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glReadBuffer == ptr::null_mut() {
                 _gl_impl_panic("glReadBuffer");
@@ -2514,6 +2522,7 @@ macro_rules! impl_gl_context {
         ) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glReadPixels"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glReadPixels == ptr::null_mut() {
                 _gl_impl_panic("glReadPixels");
@@ -2522,6 +2531,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glPixelStorei"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glPixelStorei == ptr::null_mut() {
                 _gl_impl_panic("glPixelStorei");
@@ -2599,6 +2609,7 @@ macro_rules! impl_gl_context {
         ) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glReadPixels"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glReadPixels == ptr::null_mut() {
                 _gl_impl_panic("glReadPixels");
@@ -2612,6 +2623,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn sample_coverage(&self, value: GLclampf, invert: bool) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glSampleCoverage"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glSampleCoverage == ptr::null_mut() {
                 _gl_impl_panic("glSampleCoverage");
@@ -2627,6 +2639,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn polygon_offset(&self, factor: GLfloat, units: GLfloat) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glPolygonOffset"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glPolygonOffset == ptr::null_mut() {
                 _gl_impl_panic("glPolygonOffset");
@@ -2642,6 +2655,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn pixel_store_i(&self, name: GLenum, param: GLint) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glPixelStorei"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glPixelStorei == ptr::null_mut() {
                 _gl_impl_panic("glPixelStorei");
@@ -2657,6 +2671,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn gen_buffers(&self, n: GLsizei) -> Vec<GLuint> {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGenBuffers"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGenBuffers == ptr::null_mut() {
                 _gl_impl_panic("glGenBuffers");
@@ -2674,6 +2689,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn gen_renderbuffers(&self, n: GLsizei) -> Vec<GLuint> {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGenRenderbuffers"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGenRenderbuffers == ptr::null_mut() {
                 _gl_impl_panic("glGenRenderbuffers");
@@ -2691,6 +2707,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn gen_framebuffers(&self, n: GLsizei) -> Vec<GLuint> {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGenFramebuffers"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGenFramebuffers == ptr::null_mut() {
                 _gl_impl_panic("glGenFramebuffers");
@@ -2708,6 +2725,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn gen_textures(&self, n: GLsizei) -> Vec<GLuint> {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGenTextures"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGenTextures == ptr::null_mut() {
                 _gl_impl_panic("glGenTextures");
@@ -2725,6 +2743,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn gen_vertex_arrays(&self, n: GLsizei) -> Vec<GLuint> {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGenVertexArrays"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGenVertexArrays == ptr::null_mut() {
                 _gl_impl_panic("glGenVertexArrays");
@@ -2742,6 +2761,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn gen_vertex_arrays_apple(&self, n: GLsizei) -> Vec<GLuint> {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGenVertexArraysAPPLE"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGenVertexArraysAPPLE == ptr::null_mut() {
                 _gl_impl_panic("glGenVertexArraysAPPLE");
@@ -2759,6 +2779,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn gen_queries(&self, n: GLsizei) -> Vec<GLuint> {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGenQueries"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGenQueries == ptr::null_mut() {
                 _gl_impl_panic("glGenQueries");
@@ -2776,6 +2797,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn begin_query(&self, target: GLenum, id: GLuint) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glBeginQuery"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glBeginQuery == ptr::null_mut() {
                 _gl_impl_panic("glBeginQuery");
@@ -2791,6 +2813,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn end_query(&self, target: GLenum) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glEndQuery"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glEndQuery == ptr::null_mut() {
                 _gl_impl_panic("glEndQuery");
@@ -2806,6 +2829,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn query_counter(&self, id: GLuint, target: GLenum) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glQueryCounter"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glQueryCounter == ptr::null_mut() {
                 _gl_impl_panic("glQueryCounter");
@@ -2821,6 +2845,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn get_query_object_iv(&self, id: GLuint, pname: GLenum) -> i32 {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetQueryObjectiv"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetQueryObjectiv == ptr::null_mut() {
                 _gl_impl_panic("glGetQueryObjectiv");
@@ -2836,6 +2861,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn get_query_object_uiv(&self, id: GLuint, pname: GLenum) -> u32 {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetQueryObjectuiv"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetQueryObjectuiv == ptr::null_mut() {
                 _gl_impl_panic("glGetQueryObjectuiv");
@@ -2851,6 +2877,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn get_query_object_i64v(&self, id: GLuint, pname: GLenum) -> i64 {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetQueryObjecti64v"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetQueryObjecti64v == ptr::null_mut() {
                 _gl_impl_panic("glGetQueryObjecti64v");
@@ -2866,6 +2893,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn get_query_object_ui64v(&self, id: GLuint, pname: GLenum) -> u64 {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetQueryObjectui64v"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetQueryObjectui64v == ptr::null_mut() {
                 _gl_impl_panic("glGetQueryObjectui64v");
@@ -2881,6 +2909,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn delete_queries(&self, queries: &[GLuint]) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glDeleteQueries"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glDeleteQueries == ptr::null_mut() {
                 _gl_impl_panic("glDeleteQueries");
@@ -2896,6 +2925,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn delete_vertex_arrays(&self, vertex_arrays: &[GLuint]) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glDeleteVertexArrays"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glDeleteVertexArrays == ptr::null_mut() {
                 _gl_impl_panic("glDeleteVertexArrays");
@@ -2911,6 +2941,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn delete_vertex_arrays_apple(&self, vertex_arrays: &[GLuint]) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glDeleteVertexArraysAPPLE"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glDeleteVertexArraysAPPLE == ptr::null_mut() {
                 _gl_impl_panic("glDeleteVertexArraysAPPLE");
@@ -2926,6 +2957,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn delete_buffers(&self, buffers: &[GLuint]) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glDeleteBuffers"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glDeleteBuffers == ptr::null_mut() {
                 _gl_impl_panic("glDeleteBuffers");
@@ -2941,6 +2973,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn delete_renderbuffers(&self, renderbuffers: &[GLuint]) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glDeleteRenderbuffers"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glDeleteRenderbuffers == ptr::null_mut() {
                 _gl_impl_panic("glDeleteRenderbuffers");
@@ -2956,6 +2989,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn delete_framebuffers(&self, framebuffers: &[GLuint]) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glDeleteFramebuffers"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glDeleteFramebuffers == ptr::null_mut() {
                 _gl_impl_panic("glDeleteFramebuffers");
@@ -2971,6 +3005,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn delete_textures(&self, textures: &[GLuint]) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glDeleteTextures"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glDeleteTextures == ptr::null_mut() {
                 _gl_impl_panic("glDeleteTextures");
@@ -2992,6 +3027,7 @@ macro_rules! impl_gl_context {
         ) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glFramebufferRenderbuffer"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glFramebufferRenderbuffer == ptr::null_mut() {
                 _gl_impl_panic("glFramebufferRenderbuffer");
@@ -3013,6 +3049,7 @@ macro_rules! impl_gl_context {
         ) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glRenderbufferStorage"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glRenderbufferStorage == ptr::null_mut() {
                 _gl_impl_panic("glRenderbufferStorage");
@@ -3028,6 +3065,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn depth_func(&self, func: GLenum) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glDepthFunc"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glDepthFunc == ptr::null_mut() {
                 _gl_impl_panic("glDepthFunc");
@@ -3043,6 +3081,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn active_texture(&self, texture: GLenum) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glActiveTexture"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glActiveTexture == ptr::null_mut() {
                 _gl_impl_panic("glActiveTexture");
@@ -3058,6 +3097,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn attach_shader(&self, program: GLuint, shader: GLuint) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glAttachShader"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glAttachShader == ptr::null_mut() {
                 _gl_impl_panic("glAttachShader");
@@ -3074,6 +3114,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glBindAttribLocation"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glBindAttribLocation == ptr::null_mut() {
                 _gl_impl_panic("glBindAttribLocation");
@@ -3091,6 +3132,7 @@ macro_rules! impl_gl_context {
         $( $opt )? unsafe fn get_uniform_iv(&self, program: GLuint, location: GLint, result: &mut [GLint]) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetUniformiv"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetUniformiv == ptr::null_mut() {
                 _gl_impl_panic("glGetUniformiv");
@@ -3104,6 +3146,7 @@ macro_rules! impl_gl_context {
         $( $opt )? unsafe fn get_uniform_fv(&self, program: GLuint, location: GLint, result: &mut [GLfloat]) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetUniformfv"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetUniformfv == ptr::null_mut() {
                 _gl_impl_panic("glGetUniformfv");
@@ -3117,6 +3160,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn get_uniform_block_index(&self, program: GLuint, name: &str) -> GLuint {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetUniformBlockIndex"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetUniformBlockIndex == ptr::null_mut() {
                 _gl_impl_panic("glGetUniformBlockIndex");
@@ -3140,6 +3184,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetUniformIndices"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetUniformIndices == ptr::null_mut() {
                 _gl_impl_panic("glGetUniformIndices");
@@ -3165,6 +3210,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glBindBufferBase"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glBindBufferBase == ptr::null_mut() {
                 _gl_impl_panic("glBindBufferBase");
@@ -3188,6 +3234,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glBindBufferRange"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glBindBufferRange == ptr::null_mut() {
                 _gl_impl_panic("glBindBufferRange");
@@ -3209,6 +3256,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glUniformBlockBinding"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glUniformBlockBinding == ptr::null_mut() {
                 _gl_impl_panic("glUniformBlockBinding");
@@ -3225,6 +3273,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glBindBuffer"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glBindBuffer == ptr::null_mut() {
                 _gl_impl_panic("glBindBuffer");
@@ -3241,6 +3290,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glBindVertexArray"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glBindVertexArray == ptr::null_mut() {
                 _gl_impl_panic("glBindVertexArray");
@@ -3257,6 +3307,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glBindVertexArrayAPPLE"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glBindVertexArrayAPPLE == ptr::null_mut() {
                 _gl_impl_panic("glBindVertexArrayAPPLE");
@@ -3273,6 +3324,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glBindRenderbuffer"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glBindRenderbuffer == ptr::null_mut() {
                 _gl_impl_panic("glBindRenderbuffer");
@@ -3289,6 +3341,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glBindFramebuffer"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glBindFramebuffer == ptr::null_mut() {
                 _gl_impl_panic("glBindFramebuffer");
@@ -3305,6 +3358,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glBindTexture"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glBindTexture == ptr::null_mut() {
                 _gl_impl_panic("glBindTexture");
@@ -3321,6 +3375,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glDrawBuffers"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glDrawBuffers == ptr::null_mut() {
                 _gl_impl_panic("glDrawBuffers");
@@ -3348,6 +3403,7 @@ macro_rules! impl_gl_context {
         ) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glTexImage2D"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glTexImage2D == ptr::null_mut() {
                 _gl_impl_panic("glTexImage2D");
@@ -3401,6 +3457,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glCompressedTexImage2D"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glCompressedTexImage2D == ptr::null_mut() {
                 _gl_impl_panic("glCompressedTexImage2D");
@@ -3435,6 +3492,7 @@ macro_rules! impl_gl_context {
         ) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glCompressedTexSubImage2D"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glCompressedTexSubImage2D == ptr::null_mut() {
                 _gl_impl_panic("glCompressedTexSubImage2D");
@@ -3473,6 +3531,7 @@ macro_rules! impl_gl_context {
         ) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glTexImage3D"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glTexImage3D == ptr::null_mut() {
                 _gl_impl_panic("glTexImage3D");
@@ -3513,6 +3572,7 @@ macro_rules! impl_gl_context {
         ) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glCopyTexImage2D"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glCopyTexImage2D == ptr::null_mut() {
                 _gl_impl_panic("glCopyTexImage2D");
@@ -3547,6 +3607,7 @@ macro_rules! impl_gl_context {
         ) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glCopyTexSubImage2D"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glCopyTexSubImage2D == ptr::null_mut() {
                 _gl_impl_panic("glCopyTexSubImage2D");
@@ -3573,6 +3634,7 @@ macro_rules! impl_gl_context {
         ) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glCopyTexSubImage3D"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glCopyTexSubImage3D == ptr::null_mut() {
                 _gl_impl_panic("glCopyTexSubImage3D");
@@ -3601,6 +3663,7 @@ macro_rules! impl_gl_context {
         ) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glTexSubImage2D"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glTexSubImage2D == ptr::null_mut() {
                 _gl_impl_panic("glTexSubImage2D");
@@ -3637,6 +3700,7 @@ macro_rules! impl_gl_context {
         ) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glTexSubImage2D"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glTexSubImage2D == ptr::null_mut() {
                 _gl_impl_panic("glTexSubImage2D");
@@ -3675,6 +3739,7 @@ macro_rules! impl_gl_context {
         ) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glTexSubImage3D"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glTexSubImage3D == ptr::null_mut() {
                 _gl_impl_panic("glTexSubImage3D");
@@ -3715,6 +3780,7 @@ macro_rules! impl_gl_context {
         ) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glTexSubImage3D"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glTexSubImage3D == ptr::null_mut() {
                 _gl_impl_panic("glTexSubImage3D");
@@ -3749,6 +3815,7 @@ macro_rules! impl_gl_context {
         ) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glTexStorage2D"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glTexStorage2D == ptr::null_mut() {
                 _gl_impl_panic("glTexStorage2D");
@@ -3772,6 +3839,7 @@ macro_rules! impl_gl_context {
         ) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glTexStorage3D"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glTexStorage3D == ptr::null_mut() {
                 _gl_impl_panic("glTexStorage3D");
@@ -3794,6 +3862,7 @@ macro_rules! impl_gl_context {
         ) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetTexImage"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetTexImage == ptr::null_mut() {
                 _gl_impl_panic("glGetTexImage");
@@ -3826,6 +3895,7 @@ macro_rules! impl_gl_context {
         ) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glCopyImageSubData"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glCopyImageSubData == ptr::null_mut() {
                 _gl_impl_panic("glCopyImageSubData");
@@ -3843,6 +3913,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glInvalidateFramebuffer"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glInvalidateFramebuffer == ptr::null_mut() {
                 _gl_impl_panic("glInvalidateFramebuffer");
@@ -3871,6 +3942,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glInvalidateSubFramebuffer"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glInvalidateSubFramebuffer == ptr::null_mut() {
                 _gl_impl_panic("glInvalidateSubFramebuffer");
@@ -3894,6 +3966,7 @@ macro_rules! impl_gl_context {
         $( $opt )? unsafe fn get_integer_v(&self, name: GLenum, result: &mut [GLint]) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetIntegerv"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetIntegerv == ptr::null_mut() {
                 _gl_impl_panic("glGetIntegerv");
@@ -3907,6 +3980,7 @@ macro_rules! impl_gl_context {
         $( $opt )? unsafe fn get_integer_64v(&self, name: GLenum, result: &mut [GLint64]) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetInteger64v"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetInteger64v == ptr::null_mut() {
                 _gl_impl_panic("glGetInteger64v");
@@ -3919,6 +3993,7 @@ macro_rules! impl_gl_context {
         $( $opt )? unsafe fn get_integer_iv(&self, name: GLenum, index: GLuint, result: &mut [GLint]) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetIntegeri_v"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetIntegeri_v == ptr::null_mut() {
                 _gl_impl_panic("glGetIntegeri_v");
@@ -3932,6 +4007,7 @@ macro_rules! impl_gl_context {
         $( $opt )? unsafe fn get_integer_64iv(&self, name: GLenum, index: GLuint, result: &mut [GLint64]) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetInteger64i_v"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetInteger64i_v == ptr::null_mut() {
                 _gl_impl_panic("glGetInteger64i_v");
@@ -3945,6 +4021,7 @@ macro_rules! impl_gl_context {
         $( $opt )? unsafe fn get_boolean_v(&self, name: GLenum, result: &mut [GLboolean]) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetBooleanv"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetBooleanv == ptr::null_mut() {
                 _gl_impl_panic("glGetBooleanv");
@@ -3958,6 +4035,7 @@ macro_rules! impl_gl_context {
         $( $opt )? unsafe fn get_float_v(&self, name: GLenum, result: &mut [GLfloat]) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetFloatv"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetFloatv == ptr::null_mut() {
                 _gl_impl_panic("glGetFloatv");
@@ -3975,6 +4053,7 @@ macro_rules! impl_gl_context {
         ) -> GLint {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetFramebufferAttachmentParameteriv"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetFramebufferAttachmentParameteriv == ptr::null_mut() {
                 _gl_impl_panic("glGetFramebufferAttachmentParameteriv");
@@ -3996,6 +4075,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn get_renderbuffer_parameter_iv(&self, target: GLenum, pname: GLenum) -> GLint {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetRenderbufferParameteriv"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetRenderbufferParameteriv == ptr::null_mut() {
                 _gl_impl_panic("glGetRenderbufferParameteriv");
@@ -4014,6 +4094,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetTexParameteriv"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetTexParameteriv == ptr::null_mut() {
                 _gl_impl_panic("glGetTexParameteriv");
@@ -4032,6 +4113,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetTexParameterfv"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetTexParameterfv == ptr::null_mut() {
                 _gl_impl_panic("glGetTexParameterfv");
@@ -4050,6 +4132,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glTexParameteri"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glTexParameteri == ptr::null_mut() {
                 _gl_impl_panic("glTexParameteri");
@@ -4066,6 +4149,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glTexParameterf"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glTexParameterf == ptr::null_mut() {
                 _gl_impl_panic("glTexParameterf");
@@ -4089,6 +4173,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glFramebufferTexture2D"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glFramebufferTexture2D == ptr::null_mut() {
                 _gl_impl_panic("glFramebufferTexture2D");
@@ -4111,6 +4196,7 @@ macro_rules! impl_gl_context {
         ) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glFramebufferTextureLayer"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glFramebufferTextureLayer == ptr::null_mut() {
                 _gl_impl_panic("glFramebufferTextureLayer");
@@ -4138,6 +4224,7 @@ macro_rules! impl_gl_context {
         ) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glBlitFramebuffer"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glBlitFramebuffer == ptr::null_mut() {
                 _gl_impl_panic("glBlitFramebuffer");
@@ -4155,6 +4242,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn vertex_attrib_4f(&self, index: GLuint, x: GLfloat, y: GLfloat, z: GLfloat, w: GLfloat) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glVertexAttrib4f"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glVertexAttrib4f == ptr::null_mut() {
                 _gl_impl_panic("glVertexAttrib4f");
@@ -4177,6 +4265,7 @@ macro_rules! impl_gl_context {
         ) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glVertexAttribPointer"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glVertexAttribPointer == ptr::null_mut() {
                 _gl_impl_panic("glVertexAttribPointer");
@@ -4207,6 +4296,7 @@ macro_rules! impl_gl_context {
         ) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glVertexAttribPointer"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glVertexAttribPointer == ptr::null_mut() {
                 _gl_impl_panic("glVertexAttribPointer");
@@ -4236,6 +4326,7 @@ macro_rules! impl_gl_context {
         ) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glVertexAttribIPointer"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glVertexAttribIPointer == ptr::null_mut() {
                 _gl_impl_panic("glVertexAttribIPointer");
@@ -4252,6 +4343,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glVertexAttribDivisor"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glVertexAttribDivisor == ptr::null_mut() {
                 _gl_impl_panic("glVertexAttribDivisor");
@@ -4268,6 +4360,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glViewport"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glViewport == ptr::null_mut() {
                 _gl_impl_panic("glViewport");
@@ -4284,6 +4377,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glScissor"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glScissor == ptr::null_mut() {
                 _gl_impl_panic("glScissor");
@@ -4300,6 +4394,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glLineWidth"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glLineWidth == ptr::null_mut() {
                 _gl_impl_panic("glLineWidth");
@@ -4316,6 +4411,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glUseProgram"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glUseProgram == ptr::null_mut() {
                 _gl_impl_panic("glUseProgram");
@@ -4332,6 +4428,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glValidateProgram"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glValidateProgram == ptr::null_mut() {
                 _gl_impl_panic("glValidateProgram");
@@ -4348,6 +4445,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glDrawArrays"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glDrawArrays == ptr::null_mut() {
                 _gl_impl_panic("glDrawArrays");
@@ -4370,6 +4468,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glDrawArraysInstanced"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glDrawArraysInstanced == ptr::null_mut() {
                 _gl_impl_panic("glDrawArraysInstanced");
@@ -4391,6 +4490,7 @@ macro_rules! impl_gl_context {
         ) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glDrawElements"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glDrawElements == ptr::null_mut() {
                 _gl_impl_panic("glDrawElements");
@@ -4418,6 +4518,7 @@ macro_rules! impl_gl_context {
         ) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glDrawElementsInstanced"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glDrawElementsInstanced == ptr::null_mut() {
                 _gl_impl_panic("glDrawElementsInstanced");
@@ -4440,6 +4541,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glBlendColor"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glBlendColor == ptr::null_mut() {
                 _gl_impl_panic("glBlendColor");
@@ -4456,6 +4558,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glBlendFunc"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glBlendFunc == ptr::null_mut() {
                 _gl_impl_panic("glBlendFunc");
@@ -4477,6 +4580,7 @@ macro_rules! impl_gl_context {
         ) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glBlendFuncSeparate"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glBlendFuncSeparate == ptr::null_mut() {
                 _gl_impl_panic("glBlendFuncSeparate");
@@ -4493,6 +4597,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glBlendEquation"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glBlendEquation == ptr::null_mut() {
                 _gl_impl_panic("glBlendEquation");
@@ -4509,6 +4614,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glBlendEquationSeparate"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glBlendEquationSeparate == ptr::null_mut() {
                 _gl_impl_panic("glBlendEquationSeparate");
@@ -4525,6 +4631,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glColorMask"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glColorMask == ptr::null_mut() {
                 _gl_impl_panic("glColorMask");
@@ -4546,6 +4653,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glCullFace"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glCullFace == ptr::null_mut() {
                 _gl_impl_panic("glCullFace");
@@ -4562,6 +4670,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glFrontFace"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glFrontFace == ptr::null_mut() {
                 _gl_impl_panic("glFrontFace");
@@ -4578,6 +4687,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glEnable"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glEnable == ptr::null_mut() {
                 _gl_impl_panic("glEnable");
@@ -4594,6 +4704,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glDisable"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glDisable == ptr::null_mut() {
                 _gl_impl_panic("glDisable");
@@ -4610,6 +4721,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glHint"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glHint == ptr::null_mut() {
                 _gl_impl_panic("glHint");
@@ -4626,6 +4738,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glIsEnabled"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glIsEnabled == ptr::null_mut() {
                 _gl_impl_panic("glIsEnabled");
@@ -4642,6 +4755,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glIsShader"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glIsShader == ptr::null_mut() {
                 _gl_impl_panic("glIsShader");
@@ -4658,6 +4772,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glIsTexture"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glIsTexture == ptr::null_mut() {
                 _gl_impl_panic("glIsTexture");
@@ -4674,6 +4789,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glIsFramebuffer"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glIsFramebuffer == ptr::null_mut() {
                 _gl_impl_panic("glIsFramebuffer");
@@ -4690,6 +4806,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glIsRenderbuffer"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glIsRenderbuffer == ptr::null_mut() {
                 _gl_impl_panic("glIsRenderbuffer");
@@ -4706,6 +4823,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glCheckFramebufferStatus"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glCheckFramebufferStatus == ptr::null_mut() {
                 _gl_impl_panic("glCheckFramebufferStatus");
@@ -4722,6 +4840,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glEnableVertexAttribArray"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glEnableVertexAttribArray == ptr::null_mut() {
                 _gl_impl_panic("glEnableVertexAttribArray");
@@ -4738,6 +4857,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glDisableVertexAttribArray"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glDisableVertexAttribArray == ptr::null_mut() {
                 _gl_impl_panic("glDisableVertexAttribArray");
@@ -4754,6 +4874,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glUniform1f"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glUniform1f == ptr::null_mut() {
                 _gl_impl_panic("glUniform1f");
@@ -4770,6 +4891,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glUniform1fv"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glUniform1fv == ptr::null_mut() {
                 _gl_impl_panic("glUniform1fv");
@@ -4786,6 +4908,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glUniform1i"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glUniform1i == ptr::null_mut() {
                 _gl_impl_panic("glUniform1i");
@@ -4802,6 +4925,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glUniform1iv"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glUniform1iv == ptr::null_mut() {
                 _gl_impl_panic("glUniform1iv");
@@ -4818,6 +4942,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glUniform1ui"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glUniform1ui == ptr::null_mut() {
                 _gl_impl_panic("glUniform1ui");
@@ -4834,6 +4959,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glUniform2f"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glUniform2f == ptr::null_mut() {
                 _gl_impl_panic("glUniform2f");
@@ -4850,6 +4976,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glUniform2fv"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glUniform2fv == ptr::null_mut() {
                 _gl_impl_panic("glUniform2fv");
@@ -4866,6 +4993,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glUniform2i"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glUniform2i == ptr::null_mut() {
                 _gl_impl_panic("glUniform2i");
@@ -4882,6 +5010,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glUniform2iv"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glUniform2iv == ptr::null_mut() {
                 _gl_impl_panic("glUniform2iv");
@@ -4898,6 +5027,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glUniform2ui"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glUniform2ui == ptr::null_mut() {
                 _gl_impl_panic("glUniform2ui");
@@ -4914,6 +5044,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glUniform3f"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glUniform3f == ptr::null_mut() {
                 _gl_impl_panic("glUniform3f");
@@ -4930,6 +5061,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glUniform3fv"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glUniform3fv == ptr::null_mut() {
                 _gl_impl_panic("glUniform3fv");
@@ -4946,6 +5078,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glUniform3i"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glUniform3i == ptr::null_mut() {
                 _gl_impl_panic("glUniform3i");
@@ -4962,6 +5095,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glUniform3iv"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glUniform3iv == ptr::null_mut() {
                 _gl_impl_panic("glUniform3iv");
@@ -4978,6 +5112,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glUniform3ui"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glUniform3ui == ptr::null_mut() {
                 _gl_impl_panic("glUniform3ui");
@@ -4994,6 +5129,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glUniform4f"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glUniform4f == ptr::null_mut() {
                 _gl_impl_panic("glUniform4f");
@@ -5010,6 +5146,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glUniform4i"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glUniform4i == ptr::null_mut() {
                 _gl_impl_panic("glUniform4i");
@@ -5026,6 +5163,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glUniform4iv"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glUniform4iv == ptr::null_mut() {
                 _gl_impl_panic("glUniform4iv");
@@ -5042,6 +5180,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glUniform4ui"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glUniform4ui == ptr::null_mut() {
                 _gl_impl_panic("glUniform4ui");
@@ -5058,6 +5197,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glUniform4fv"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glUniform4fv == ptr::null_mut() {
                 _gl_impl_panic("glUniform4fv");
@@ -5074,6 +5214,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glUniformMatrix2fv"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glUniformMatrix2fv == ptr::null_mut() {
                 _gl_impl_panic("glUniformMatrix2fv");
@@ -5095,6 +5236,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glUniformMatrix3fv"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glUniformMatrix3fv == ptr::null_mut() {
                 _gl_impl_panic("glUniformMatrix3fv");
@@ -5116,6 +5258,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glUniformMatrix4fv"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glUniformMatrix4fv == ptr::null_mut() {
                 _gl_impl_panic("glUniformMatrix4fv");
@@ -5137,6 +5280,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glDepthMask"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glDepthMask == ptr::null_mut() {
                 _gl_impl_panic("glDepthMask");
@@ -5153,6 +5297,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glDepthRange"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glDepthRange == ptr::null_mut() {
                 _gl_impl_panic("glDepthRange");
@@ -5169,6 +5314,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetActiveAttrib"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetActiveAttrib == ptr::null_mut() {
                 _gl_impl_panic("glGetActiveAttrib");
@@ -5203,6 +5349,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetActiveUniform"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetActiveUniform == ptr::null_mut() {
                 _gl_impl_panic("glGetActiveUniform");
@@ -5245,6 +5392,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetActiveUniformsiv"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetActiveUniformsiv == ptr::null_mut() {
                 _gl_impl_panic("glGetActiveUniformsiv");
@@ -5270,6 +5418,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetActiveUniformBlockiv"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetActiveUniformBlockiv == ptr::null_mut() {
                 _gl_impl_panic("glGetActiveUniformBlockiv");
@@ -5293,6 +5442,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetActiveUniformBlockiv"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetActiveUniformBlockiv == ptr::null_mut() {
                 _gl_impl_panic("glGetActiveUniformBlockiv");
@@ -5313,6 +5463,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetActiveUniformBlockName"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetActiveUniformBlockName == ptr::null_mut() {
                 _gl_impl_panic("glGetActiveUniformBlockName");
@@ -5341,6 +5492,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetAttribLocation"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetAttribLocation == ptr::null_mut() {
                 _gl_impl_panic("glGetAttribLocation");
@@ -5358,6 +5510,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetFragDataLocation"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetFragDataLocation == ptr::null_mut() {
                 _gl_impl_panic("glGetFragDataLocation");
@@ -5375,6 +5528,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetUniformLocation"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetUniformLocation == ptr::null_mut() {
                 _gl_impl_panic("glGetUniformLocation");
@@ -5392,6 +5546,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetProgramInfoLog"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetProgramInfoLog == ptr::null_mut() {
                 _gl_impl_panic("glGetProgramInfoLog");
@@ -5428,6 +5583,7 @@ macro_rules! impl_gl_context {
         $( $opt )? unsafe fn get_program_iv(&self, program: GLuint, pname: GLenum, result: &mut [GLint]) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetProgramiv"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetProgramiv == ptr::null_mut() {
                 _gl_impl_panic("glGetProgramiv");
@@ -5443,6 +5599,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetProgramBinary"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetProgramBinary == ptr::null_mut() {
                 _gl_impl_panic("glGetProgramBinary");
@@ -5480,6 +5637,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn program_binary(&self, program: GLuint, format: GLenum, binary: &[u8]) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glProgramBinary"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glProgramBinary == ptr::null_mut() {
                 _gl_impl_panic("glProgramBinary");
@@ -5500,6 +5658,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn program_parameter_i(&self, program: GLuint, pname: GLenum, value: GLint) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glProgramParameteri"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glProgramParameteri == ptr::null_mut() {
                 _gl_impl_panic("glProgramParameteri");
@@ -5515,6 +5674,7 @@ macro_rules! impl_gl_context {
         $( $opt )? unsafe fn get_vertex_attrib_iv(&self, index: GLuint, pname: GLenum, result: &mut [GLint]) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetVertexAttribiv"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetVertexAttribiv == ptr::null_mut() {
                 _gl_impl_panic("glGetVertexAttribiv");
@@ -5528,6 +5688,7 @@ macro_rules! impl_gl_context {
         $( $opt )? unsafe fn get_vertex_attrib_fv(&self, index: GLuint, pname: GLenum, result: &mut [GLfloat]) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetVertexAttribfv"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetVertexAttribfv == ptr::null_mut() {
                 _gl_impl_panic("glGetVertexAttribfv");
@@ -5541,6 +5702,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetVertexAttribPointerv"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetVertexAttribPointerv == ptr::null_mut() {
                 _gl_impl_panic("glGetVertexAttribPointerv");
@@ -5559,6 +5721,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetBufferParameteriv"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetBufferParameteriv == ptr::null_mut() {
                 _gl_impl_panic("glGetBufferParameteriv");
@@ -5577,6 +5740,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetShaderInfoLog"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetShaderInfoLog == ptr::null_mut() {
                 _gl_impl_panic("glGetShaderInfoLog");
@@ -5613,6 +5777,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetString"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetString == ptr::null_mut() {
                 _gl_impl_panic("glGetString");
@@ -5634,6 +5799,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetStringi"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetStringi == ptr::null_mut() {
                 _gl_impl_panic("glGetStringi");
@@ -5655,6 +5821,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetShaderiv"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetShaderiv == ptr::null_mut() {
                 _gl_impl_panic("glGetShaderiv");
@@ -5673,6 +5840,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetShaderPrecisionFormat"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             // if self.glGetShaderPrecisionFormat == ptr::null_mut() {
             //     _gl_impl_panic("glGetShaderPrecisionFormat");
@@ -5702,6 +5870,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glCompileShader"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glCompileShader == ptr::null_mut() {
                 _gl_impl_panic("glCompileShader");
@@ -5718,6 +5887,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glCreateProgram"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glCreateProgram == ptr::null_mut() {
                 _gl_impl_panic("glCreateProgram");
@@ -5734,6 +5904,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glDeleteProgram"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glDeleteProgram == ptr::null_mut() {
                 _gl_impl_panic("glDeleteProgram");
@@ -5750,6 +5921,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glCreateShader"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glCreateShader == ptr::null_mut() {
                 _gl_impl_panic("glCreateShader");
@@ -5766,6 +5938,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glDeleteShader"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glDeleteShader == ptr::null_mut() {
                 _gl_impl_panic("glDeleteShader");
@@ -5782,6 +5955,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glDetachShader"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glDetachShader == ptr::null_mut() {
                 _gl_impl_panic("glDetachShader");
@@ -5798,6 +5972,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glLinkProgram"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glLinkProgram == ptr::null_mut() {
                 _gl_impl_panic("glLinkProgram");
@@ -5814,6 +5989,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glClearColor"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glClearColor == ptr::null_mut() {
                 _gl_impl_panic("glClearColor");
@@ -5830,6 +6006,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glClear"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glClear == ptr::null_mut() {
                 _gl_impl_panic("glClear");
@@ -5846,6 +6023,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glClearDepth"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glClearDepth == ptr::null_mut() {
                 _gl_impl_panic("glClearDepth");
@@ -5862,6 +6040,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glClearStencil"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glClearStencil == ptr::null_mut() {
                 _gl_impl_panic("glClearStencil");
@@ -5878,6 +6057,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glFlush"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glFlush == ptr::null_mut() {
                 _gl_impl_panic("glFlush");
@@ -5894,6 +6074,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glFinish"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glFinish == ptr::null_mut() {
                 _gl_impl_panic("glFinish");
@@ -5926,6 +6107,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glStencilMask"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glStencilMask == ptr::null_mut() {
                 _gl_impl_panic("glStencilMask");
@@ -5942,6 +6124,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glStencilMaskSeparate"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glStencilMaskSeparate == ptr::null_mut() {
                 _gl_impl_panic("glStencilMaskSeparate");
@@ -5958,6 +6141,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glStencilFunc"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glStencilFunc == ptr::null_mut() {
                 _gl_impl_panic("glStencilFunc");
@@ -5974,6 +6158,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glStencilFuncSeparate"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glStencilFuncSeparate == ptr::null_mut() {
                 _gl_impl_panic("glStencilFuncSeparate");
@@ -5990,6 +6175,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glStencilOp"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glStencilOp == ptr::null_mut() {
                 _gl_impl_panic("glStencilOp");
@@ -6006,6 +6192,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glStencilOpSeparate"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glStencilOpSeparate == ptr::null_mut() {
                 _gl_impl_panic("glStencilOpSeparate");
@@ -6022,6 +6209,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn egl_image_target_texture2d_oes(&self, target: GLenum, image: GLeglImageOES) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glEglImageTargetTexture2dOes"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             return; // not supported
 
@@ -6035,6 +6223,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn egl_image_target_renderbuffer_storage_oes(&self, target: GLenum, image: GLeglImageOES) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glEglImageTargetRenderbufferStorageOes"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             return; // not supported
 
@@ -6047,6 +6236,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn generate_mipmap(&self, target: GLenum) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGenerateMipmap"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGenerateMipmap == ptr::null_mut() {
                 _gl_impl_panic("glGenerateMipmap");
@@ -6063,6 +6253,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glInsertEventMarkerEXT"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glInsertEventMarkerEXT == ptr::null_mut() {
                 _gl_impl_panic("glInsertEventMarkerEXT");
@@ -6079,6 +6270,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glPushGroupMarkerEXT"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glPushGroupMarkerEXT == ptr::null_mut() {
                 _gl_impl_panic("glPushGroupMarkerEXT");
@@ -6095,6 +6287,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glPopGroupMarkerEXT"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glPopGroupMarkerEXT == ptr::null_mut() {
                 _gl_impl_panic("glPopGroupMarkerEXT");
@@ -6111,6 +6304,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glDebugMessageInsertKHR"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glDebugMessageInsertKHR == ptr::null_mut() {
                 _gl_impl_panic("glDebugMessageInsertKHR");
@@ -6128,6 +6322,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glPushDebugGroupKHR"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glPushDebugGroupKHR == ptr::null_mut() {
                 _gl_impl_panic("glPushDebugGroupKHR");
@@ -6144,6 +6339,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glPopDebugGroupKHR"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glPopDebugGroupKHR == ptr::null_mut() {
                 _gl_impl_panic("glPopDebugGroupKHR");
@@ -6160,6 +6356,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glFenceSync"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glFenceSync == ptr::null_mut() {
                 _gl_impl_panic("glFenceSync");
@@ -6176,6 +6373,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glClientWaitSync"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glClientWaitSync == ptr::null_mut() {
                 _gl_impl_panic("glClientWaitSync");
@@ -6192,6 +6390,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glWaitSync"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glWaitSync == ptr::null_mut() {
                 _gl_impl_panic("glWaitSync");
@@ -6208,6 +6407,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glTextureRangeAPPLE"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glTextureRangeAPPLE == ptr::null_mut() {
                 _gl_impl_panic("glTextureRangeAPPLE");
@@ -6228,6 +6428,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glDeleteSync"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glDeleteSync == ptr::null_mut() {
                 _gl_impl_panic("glDeleteSync");
@@ -6246,6 +6447,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGenFencesAPPLE"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGenFencesAPPLE == ptr::null_mut() {
                 _gl_impl_panic("glGenFencesAPPLE");
@@ -6263,6 +6465,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glDeleteFencesAPPLE"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glDeleteFencesAPPLE == ptr::null_mut() {
                 _gl_impl_panic("glDeleteFencesAPPLE");
@@ -6279,6 +6482,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glSetFenceAPPLE"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glSetFenceAPPLE == ptr::null_mut() {
                 _gl_impl_panic("glSetFenceAPPLE");
@@ -6295,6 +6499,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glFinishFenceAPPLE"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glFinishFenceAPPLE == ptr::null_mut() {
                 _gl_impl_panic("glFinishFenceAPPLE");
@@ -6311,6 +6516,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glTestFenceAPPLE"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glTestFenceAPPLE == ptr::null_mut() {
                 _gl_impl_panic("glTestFenceAPPLE");
@@ -6327,6 +6533,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glTestObjectAPPLE"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glTestObjectAPPLE == ptr::null_mut() {
                 _gl_impl_panic("glTestObjectAPPLE");
@@ -6343,6 +6550,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glFinishObjectAPPLE"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glTestObjectAPPLE == ptr::null_mut() {
                 _gl_impl_panic("glFinishObjectAPPLE");
@@ -6366,6 +6574,7 @@ macro_rules! impl_gl_context {
         ) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glBindFragDataLocationIndexed"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glBindFragDataLocationIndexed == ptr::null_mut() {
                 _gl_impl_panic("glBindFragDataLocationIndexed");
@@ -6389,6 +6598,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetFragDataIndex"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetFragDataIndex == ptr::null_mut() {
                 _gl_impl_panic("glGetFragDataIndex");
@@ -6408,6 +6618,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glGetDebugMessageLog"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glGetDebugMessageLog == ptr::null_mut() {
                 _gl_impl_panic("glGetDebugMessageLog");
@@ -6467,6 +6678,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn provoking_vertex_angle(&self, _mode: GLenum) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glProvokingVertexAngle"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             _gl_impl_panic("glProvokingVertexAngle"); // GLES only
             return;
@@ -6477,6 +6689,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glBlendBarrierKHR"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glBlendBarrierKHR == ptr::null_mut() {
                 _gl_impl_panic("glBlendBarrierKHR");
@@ -6497,6 +6710,7 @@ macro_rules! impl_gl_context {
             _unpack_flip_y: GLboolean, _unpack_premultiply_alpha: GLboolean, _unpack_unmultiply_alpha: GLboolean)
         {
             #[cfg(feature = "debug")] { _gl_print_debug("glCopyTextureChromium"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             _gl_impl_panic("glCopyTextureChromium"); // GLES only
             return;
@@ -6508,6 +6722,7 @@ macro_rules! impl_gl_context {
             _unpack_flip_y: GLboolean, _unpack_premultiply_alpha: GLboolean, _unpack_unmultiply_alpha: GLboolean)
         {
             #[cfg(feature = "debug")] { _gl_print_debug("glCopySubTextureChromium"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             _gl_impl_panic("glCopySubTextureChromium"); // GLES only
             return;
@@ -6529,6 +6744,7 @@ macro_rules! impl_gl_context {
         ) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glANGLECopyTexture3D"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
             _gl_impl_panic("glANGLECopyTexture3D"); // ANGLE only
             return;
         }
@@ -6555,6 +6771,7 @@ macro_rules! impl_gl_context {
         ) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glANGLECopySubTexture3D"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             _gl_impl_panic("glANGLECopySubTexture3D"); // ANGLE only
             // return;
@@ -6569,6 +6786,7 @@ macro_rules! impl_gl_context {
         ) {
 
             #[cfg(feature = "debug")] { _gl_print_debug("glBufferStorage"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glBufferStorage == ptr::null_mut() {
                 _gl_impl_panic("glBufferStorage");
@@ -6585,6 +6803,7 @@ macro_rules! impl_gl_context {
 
 
             #[cfg(feature = "debug")] { _gl_print_debug("glFlushMappedBufferRange"); }
+            #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
 
             if self.glFlushMappedBufferRange == ptr::null_mut() {
                 _gl_impl_panic("glFlushMappedBufferRange");
@@ -6620,3 +6839,23 @@ fn _gl_impl_panic(_s: &str) {  }
 
 #[cfg(feature = "debug")]
 fn _gl_print_debug(s: &str) { println!("Called OpenGL function: {}", s); }
+
+#[cfg(feature = "error")]
+fn _gl_check_for_last_error(gl: &GenericGlContext) {
+    let mut last = gl.get_error();
+    while last != gl::NO_ERROR {
+        let e_string = match last {
+            gl::INVALID_ENUM => "INVALID_ENUM".to_string(),
+            gl::INVALID_VALUE => "INVALID_VALUE".to_string(),
+            gl::INVALID_OPERATION => "INVALID_OPERATION".to_string(),
+            gl::INVALID_FRAMEBUFFER_OPERATION => "INVALID_FRAMEBUFFER_OPERATION".to_string(),
+            gl::OUT_OF_MEMORY => "OUT_OF_MEMORY".to_string(),
+            gl::STACK_UNDERFLOW => "STACK_UNDERFLOW".to_string(),
+            gl::STACK_OVERFLOW => "STACK_OVERFLOW".to_string(),
+            _ => format!("Unknown error: {:0x}", last),
+        };
+
+        println!("OPENGL ERROR OCCURRED: {}", e_string);
+        last = gl.get_error();
+    }
+}
