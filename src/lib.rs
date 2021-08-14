@@ -6090,7 +6090,7 @@ macro_rules! impl_gl_context {
         $( $opt )? fn get_error(&self) -> GLenum {
 
 
-            #[cfg(feature = "debug")] { _gl_print_debug("glGetError"); }
+            #[cfg(feature = "debug")] { #[cfg(not(feature = "error"))] { _gl_print_debug("glGetError"); } }
 
             if self.glGetError == ptr::null_mut() {
                 _gl_impl_panic("glGetError");
