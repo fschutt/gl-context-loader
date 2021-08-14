@@ -6842,8 +6842,10 @@ fn _gl_print_debug(s: &str) { println!("Called OpenGL function: {}", s); }
 
 #[cfg(feature = "error")]
 fn _gl_check_for_last_error(gl: &GenericGlContext) {
+    // if more than 20 errors occur at once, this likely indicates an infinite loop
+    let mut error_count = 20;
     let mut last = gl.get_error();
-    while last != gl::NO_ERROR {
+    while last != gl::NO_ERROR && error_count > 0 {
         let e_string = match last {
             gl::INVALID_ENUM => "INVALID_ENUM".to_string(),
             gl::INVALID_VALUE => "INVALID_VALUE".to_string(),
@@ -6857,5 +6859,6 @@ fn _gl_check_for_last_error(gl: &GenericGlContext) {
 
         println!("OPENGL ERROR OCCURRED: {}", e_string);
         last = gl.get_error();
+        error_count -= 1;
     }
 }
