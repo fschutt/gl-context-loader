@@ -1545,6 +1545,7 @@ pub use gleam::gl::GlType;
 
 #[cfg(not(feature = "gleam_trait"))]
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub enum GlType {
     Gl,
     GlEs,
@@ -2329,6 +2330,8 @@ pub struct GenericGlContext {
     pub glWindowPos3iv: *mut c_void,
     pub glWindowPos3s: *mut c_void,
     pub glWindowPos3sv: *mut c_void,
+    pub glStartTilingQCOM: *mut c_void,
+    pub glEndTilingQCOM: *mut c_void,
 }
 
 fn encode_ascii(input: &str) -> Vec<i8> {
@@ -6827,6 +6830,40 @@ impl gleam::gl::Gl for GenericGlContext {
 #[allow(dead_code)]
 impl GenericGlContext {
     impl_gl_context!(pub);
+
+    pub fn start_tiling_qcom(&self, x: GLuint, y: GLuint, width: GLuint, height: GLuint, preserve_mask: GLbitfield) {
+
+
+        #[cfg(feature = "debug")] { _gl_print_debug("glStartTilingQCOM"); }
+        #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
+
+        if self.glStartTilingQCOM == ptr::null_mut() {
+            _gl_impl_panic("glStartTilingQCOM");
+            return;
+        }
+
+        unsafe {
+            let func: extern "system" fn(GLuint, GLuint, GLuint, GLuint, GLbitfield) = mem::transmute(self.glStartTilingQCOM);
+            (func)(x, y, width, height, preserve_mask);
+        }
+    }
+
+    pub fn end_tiling_qcom(&self, preserve_mask: GLbitfield) {
+
+
+        #[cfg(feature = "debug")] { _gl_print_debug("glEndTilingQCOM"); }
+        #[cfg(feature = "error")] { _gl_check_for_last_error(self); }
+
+        if self.glEndTilingQCOM == ptr::null_mut() {
+            _gl_impl_panic("glEndTilingQCOM");
+            return;
+        }
+
+        unsafe {
+            let func: extern "system" fn(GLbitfield) = mem::transmute(self.glEndTilingQCOM);
+            (func)(preserve_mask);
+        }
+    }
 }
 
 
