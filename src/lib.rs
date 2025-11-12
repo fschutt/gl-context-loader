@@ -1545,7 +1545,7 @@ pub use gleam::gl::GlType;
 
 #[cfg(not(feature = "gleam_trait"))]
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum GlType {
     Gl,
     GlEs,
@@ -2362,7 +2362,14 @@ pub unsafe fn cstr_from_ptr<'a>(ptr: *const c_char) -> &'a str {
 
 macro_rules! impl_gl_context {
     ($($opt:ident)?) => {
-        $( $opt )? fn get_type(&self) -> GlType { GlType::Gl }
+        $( $opt )? fn get_type(&self) -> GlType {
+            let version_string = self.get_string(gl::VERSION);
+            if version_string.contains("OpenGL ES") {
+                GlType::GlEs
+            } else {
+                GlType::Gl
+            }
+        }
 
         $( $opt )? fn buffer_data_untyped(
             &self,
